@@ -1,0 +1,138 @@
+.search-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: .25rem;
+}
+.filter-hamlet{
+  display: flex;
+  flex-direction: column;
+  gap: .25rem;
+  margin-bottom: 0.5rem;
+  width: 25%;
+}
+input {
+  font-size: 1.1rem;
+}
+.list-cards {
+  background-color: rgb(248, 248, 248);
+}
+
+.user-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1rem;
+  /* Xoay */
+  /* position: relative;
+  transform-style: preserve-3d;
+  transition: all 0.8s ease; */
+}
+/* .user-cards :hover{
+  transform: rotateY(180deg);
+} */
+.card {
+  border: 0.2px solid black;
+  border-radius: 5px;
+  background-color: white;
+  padding: 0.5rem;
+  /* Xoay */
+  /* position: absolute; */
+  /* backface-visibility: hidden;
+  overflow: hidden; */
+}
+.card >.header-id {
+  margin-bottom: .25rem;
+  font-size: 1.1rem;
+  font-weight: bold;
+  display: flex;
+
+}
+.card > .header-id >.header-id-left {
+  width:50%;
+}
+.card > .header-id >.header-id-right {
+  width:50%;
+  text-align:right; /* canh cho the i icon khi dung flex*/
+
+}
+.card >.header-date {
+  margin-bottom: .25rem;
+  font-size: 0.8rem;
+  font-weight: lighter;
+  color: #777;
+  display: flex;
+}
+.card >.header-date >.header-date-left {
+  width:50%;
+}
+.card >.header-date >.header-date-right {
+  width:50%;
+  text-align:right; /* canh cho the i icon khi dung flex*/
+}
+.card >.header-info {
+  margin-bottom: .25rem;
+  font-size: 0.8rem;
+  font-weight: lighter;
+  color: #777;
+  display: flex;
+}
+.card >.header-info >.header-info-left {
+  width:50%;
+}
+.card >.header-info >.header-info-right {
+  width:50%;
+  text-align:right; /* canh cho the i icon khi dung flex*/
+}
+.card > .body {
+  font-size: 1.1rem;
+  color: #777;
+  margin-left: 1rem;
+}
+.card > .footer {
+  margin-bottom: .1rem;
+  margin-top: .5rem;
+  display: flex; /* mới chia 2 cột*/
+
+}
+.card > .footer> .footer-left {
+  width:50%;
+}
+.card > .footer> .footer-right {
+  width:50%;
+}
+.card > .footer> .footer-left > .fa-print {
+  color: rgb(209, 22, 22);
+  margin-left: 0.2rem;
+}
+.card > .footer> .footer-right >.fa-print {
+  float:right; /* canh cho the i icon khi dung flex*/
+  color: rgb(2, 202, 2);
+  font-size: 18px;
+
+}
+.card > .footer> .footer-right >.fa-cash-register {
+  float:right;
+  color: rgb(42, 190, 22);
+  font-size: 18px;
+  margin-right: 0.5rem;
+}
+.card > .footer> .footer-left > .fa-print:active {
+  color: rgb(233, 83, 83);
+}
+.card > .footer> .footer-right >.fa-print:active {
+  color: rgb(17, 110, 5);
+}
+.card > .footer> .footer-right >.fa-cash-register:active {
+  color: rgb(17, 110, 5);
+
+}
+.fa-pen-to-square {
+  color: rgb(233, 45, 45);
+  font-size: 18px;
+}
+.fa-pen-to-square:active {
+  color: rgb(141, 31, 31);
+}
+.hide {
+  display: none;
+}
