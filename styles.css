@@ -1,8 +1,77 @@
-.search-wrapper {
+/* .container {
+  position:relative;
+} */
+.toolbar-top {
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4.5rem;
+  background: #1916ce;
+  box-shadow: 0px 9px 8px rgb(0 0 0 / 25%);
+}
+/* .search-wrapper {
   display: flex;
   flex-direction: column;
   gap: .25rem;
+  float: right;
+  padding-right: 20%;
+  width: 70%;
+} */
+/* Search box */
+
+.search-box {
+  position: relative;
+  height: 50px;
+  max-width: 50px;
+  margin: auto;
+  /* chỉnh độ cao bong đổ */
+  /* box-shadow: 0 5px 10px rgba(0, 0, 0, 0.25); */
+  border-radius: 25px;
+  transition: all 0.3s ease;
 }
+#check:checked ~ .search-box{
+  /* chinh do rong search o day */
+  max-width: 330px;
+}
+.search-box input{
+ position: absolute;
+ height: 100%;
+ width: 100%;
+ border-radius: 25px;
+ background: #fff;
+ outline: none;
+ border: none;
+ padding-left: 20px;
+ font-size: 18px;
+ /* chỉnh độ cao */
+ top: -15px;
+}
+.search-box .icon{
+  position: absolute;
+  right: -2px;
+   /* chỉnh độ cao */
+  top: -15px;
+  width: 50px;
+  background: #FFF;
+  height: 100%;
+  text-align: center;
+  line-height: 50px;
+  color: #FF676D;
+  font-size: 20px;
+  border-radius: 25px;
+}
+#check:checked ~ .search-box .icon{
+  background: #FF676D;
+  color: #FFF;
+  width: 60px;
+  border-radius: 0 25px 25px 0;
+}
+#check{
+  display: none;
+}
+/* Search box */
 .filter-sort{
   display: flex;
 }
@@ -20,17 +89,28 @@
   float:right;
   padding-right: 0.5em;
 }
+/* https://stackoverflow.com/questions/20804016/editing-input-type-search-pseudo-element-button-x */
+
+/* input[type="search"] {
+  border: 1px solid rgb(65, 35, 235);
+  padding: .2em .4em;
+  border-radius: .3em;
+}
 input {
-  font-size: 1.1rem;
+  font-size: 1rem;
+} */
+option {
+  font-size: 1rem;
 }
 .list-cards {
-  background-color: rgb(248, 248, 248);
+  overflow: scroll;
+  padding-top: 3.5rem;
 }
 
 .user-cards {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+  gap: 0.8rem;
   margin-top: 1rem;
   /* Xoay */
   /* position: relative;
@@ -91,7 +171,7 @@ input {
   margin-bottom: .25rem;
   font-size: 0.8rem;
   font-weight: lighter;
-  color: #777;
+  color: rgb(58, 57, 57);
   display: flex;
 }
 .card >.card-front>.header-date >.header-date-left {
@@ -105,7 +185,7 @@ input {
   margin-bottom: .25rem;
   font-size: 0.8rem;
   font-weight: lighter;
-  color: #777;
+  color: rgb(58, 57, 57);
   display: flex;
 }
 .card >.card-front>.header-info >.header-info-left {
@@ -118,7 +198,7 @@ input {
 .card >.card-front> .body {
   font-size: 1.1rem;
   color: #777;
-  margin-left: 1rem;
+  margin-left: 0.2rem;
 }
 .card >.card-front> .footer {
   margin-bottom: .1rem;
@@ -134,19 +214,20 @@ input {
 }
 .card >.card-front> .footer> .footer-left > .fa-print {
   color: rgb(209, 22, 22);
-  margin-left: 0.2rem;
+  margin-left: 0.8rem;
+  font-size: 19px;
 }
 .card > .card-front>.footer> .footer-right >.fa-print {
   float:right; /* canh cho the i icon khi dung flex*/
   color: rgb(2, 202, 2);
-  font-size: 18px;
-
+  font-size: 19px;
+  margin-right: -0.1rem;
 }
 .card >.card-front> .footer> .footer-right >.fa-cash-register {
   float:right;
   color: rgb(42, 190, 22);
-  font-size: 18px;
-  margin-right: 0.5rem;
+  font-size: 19px;
+  margin-right: 1.1rem;
 }
 .card > .card-front>.footer> .footer-left > .fa-print:active {
   color: rgb(233, 83, 83);
@@ -160,7 +241,7 @@ input {
 }
 .fa-pen-to-square {
   color: rgb(233, 45, 45);
-  font-size: 18px;
+  font-size: 19px;
 }
 .fa-pen-to-square:active {
   color: rgb(141, 31, 31);
@@ -168,3 +249,14 @@ input {
 .hide {
   display: none;
 }
+.toolbar-bottom {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 9999;
+  width: 100%;
+  height: 3rem;
+  background: #1916ce;
+  box-shadow: -1px -9px 7px rgb(0 0 0 / 25%);
+}
+/* https://stackoverflow.com/questions/30956644/fixed-toolbar-and-the-div-under-it-can-scroll */
