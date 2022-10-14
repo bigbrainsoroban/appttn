@@ -100,12 +100,22 @@ function renderDataAll(user) {
   }
   body.setAttribute("style", "white-space: pre;"); //có cái này mới xuống hàng trong .textContent
   body.textContent +=
-    "🏠Tổng khối: " + user.Toltal.toLocaleString("en") + " m³" + "\n";
+    "🏠Tổng: " +
+    user.Toltal.toLocaleString("en") +
+    " m³" +
+    "💦Trung bình: " +
+    user.Average.toLocaleString("en") +
+    " m³/th" +
+    "\n";
+  // body.textContent +=
+  //   "💦Trung bình: " + user.Average.toLocaleString("en") + " m³/th" + "\n";
   body.textContent +=
-    "💦Trung bình: " + user.Average.toLocaleString("en") + " m³/tháng" + "\n";
-  body.textContent +=
-    "🕖 Kỳ trước: " + user.LastNum.toLocaleString("en") + "\n";
-  body.textContent += "💸 Dư nợ: " + user.Owe.toLocaleString("en") + "\n";
+    "🕖 Kỳ trước: " +
+    user.LastNum.toLocaleString("en") +
+    "💸 Dư nợ: " +
+    user.Owe.toLocaleString("en") +
+    "\n";
+  // body.textContent += "💸 Dư nợ: " + user.Owe.toLocaleString("en") + "\n";
   userCardContainer.append(card);
   return {
     name: user.Name,
@@ -167,10 +177,26 @@ function ascending() {
     }
   });
   console.log(sorted);
-  // sorted.map((user) => {
-  //   //map ra từng dòng
-  //   return renderDataAll(user);
-  // });
+  sorted.forEach((user) => {
+    const isVisible = user.name.includes(user.name); //dk luôn đúng
+    user.element.classList.toggle("hide", !isVisible);
+    console.log(isVisible);
+  });
+}
+// clear search by uncheck
+function clearnSearch() {
+  const check = document.getElementById("check");
+  if (check.checked) {
+    //uncheck
+    document.getElementById("search").value = "";
+    // tự động hiện lại danh sách
+    var valueFilter = filterSelected.value;
+    userFilter = filteruser(valueFilter);
+    userFilter.forEach((user) => {
+      const isVisible = user.name.includes(user.name); //dk luôn đúng
+      user.element.classList.toggle("hide", !isVisible);
+    });
+  }
 }
 //Helper
 function test() {
