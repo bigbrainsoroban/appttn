@@ -12,7 +12,8 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
   <title>Document</title>
 </head>
 <body>
-  <div class="list-cards">
+  <div class="container">
+<div class="toolbar-top">
     <div class="filter-sort">
     <div class="filter-hamlet">
     <select class="form-control" name="hamlet" id="hamlet" data-filter>
@@ -28,10 +29,17 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
     </select>
   </div>
 </div>
-  <div class="search-wrapper">
-    <label for="search">Tìm kiếm</label>
-    <input type="search" id="search" placeholder="Nhập số 4 số ID hoặc tên" data-search>
+<div class="box">
+<input type="checkbox" id="check">
+  <div class="search-box">
+    <input type="search" id="search" placeholder="Nhập số 4 số ID hoặc tên" data-search><label for="check" class="icon">
+      <i class="fas fa-search" onClick="clearnSearch()"></i>
+    </label>
   </div>
+</div>
+
+</div>
+  <div class="list-cards">
   <div class="user-cards" data-user-cards-container></div>
   <template data-user-template>
  <!-- Card front -->
@@ -63,13 +71,15 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
       </div>
     </div>
     <!-- <div class="card-back">
-      Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and
+      Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.
      </div> -->
 
   </div>
      <!-- Card back-->
 
   </template>
+</div>
+<div class="toolbar-bottom"></div>
 </div>
 </body>
 </html>
