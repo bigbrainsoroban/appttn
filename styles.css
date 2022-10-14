@@ -3,12 +3,22 @@
   flex-direction: column;
   gap: .25rem;
 }
-.filter-hamlet{
+.filter-sort{
   display: flex;
+}
+.filter-hamlet{
   flex-direction: column;
   gap: .25rem;
   margin-bottom: 0.5rem;
-  width: 25%;
+  width: 35%;
+}
+.sort{
+  flex-direction: column;
+  gap: .25rem;
+  margin-bottom: 0.5rem;
+  width: 65%;
+  float:right;
+  padding-right: 0.5em;
 }
 input {
   font-size: 1.1rem;
@@ -27,102 +37,124 @@ input {
   transform-style: preserve-3d;
   transition: all 0.8s ease; */
 }
-/* .user-cards :hover{
-  transform: rotateY(180deg);
-} */
+
 .card {
   border: 0.2px solid black;
   border-radius: 5px;
   background-color: white;
   padding: 0.5rem;
   /* Xoay */
-  /* position: absolute; */
-  /* backface-visibility: hidden;
-  overflow: hidden; */
+  /* transform-style: preserve-3d;
+  transition: all 0.8s ease; */
 }
-.card >.header-id {
+.card:hover {
+  box-shadow: 3px 3px 3px #888888;
+}
+/* .card:active {
+  transform: rotateY(180deg);
+} */
+/* .card >.card-front {
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  overflow: hidden;
+
+} */
+/* .card >.card-back {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* định vị noi dung sau bằng phía trước */
+  /* -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  background-color: rgb(125, 221, 154);
+  overflow: hidden;
+  transform: rotateY(180deg); */
+  /* có trans mới hiện nôi dung sau */
+/* }  */
+.card >.card-front> .header-id {
   margin-bottom: .25rem;
   font-size: 1.1rem;
   font-weight: bold;
   display: flex;
-
 }
-.card > .header-id >.header-id-left {
+.card >.card-front> .header-id >.header-id-left {
   width:50%;
 }
-.card > .header-id >.header-id-right {
+.card >.card-front> .header-id >.header-id-right {
   width:50%;
   text-align:right; /* canh cho the i icon khi dung flex*/
 
 }
-.card >.header-date {
+.card >.card-front>.header-date {
   margin-bottom: .25rem;
   font-size: 0.8rem;
   font-weight: lighter;
   color: #777;
   display: flex;
 }
-.card >.header-date >.header-date-left {
+.card >.card-front>.header-date >.header-date-left {
   width:50%;
 }
-.card >.header-date >.header-date-right {
+.card >.card-front>.header-date >.header-date-right {
   width:50%;
   text-align:right; /* canh cho the i icon khi dung flex*/
 }
-.card >.header-info {
+.card >.card-front>.header-info {
   margin-bottom: .25rem;
   font-size: 0.8rem;
   font-weight: lighter;
   color: #777;
   display: flex;
 }
-.card >.header-info >.header-info-left {
+.card >.card-front>.header-info >.header-info-left {
   width:50%;
 }
-.card >.header-info >.header-info-right {
+.card >.card-front>.header-info >.header-info-right {
   width:50%;
   text-align:right; /* canh cho the i icon khi dung flex*/
 }
-.card > .body {
+.card >.card-front> .body {
   font-size: 1.1rem;
   color: #777;
   margin-left: 1rem;
 }
-.card > .footer {
+.card >.card-front> .footer {
   margin-bottom: .1rem;
   margin-top: .5rem;
   display: flex; /* mới chia 2 cột*/
 
 }
-.card > .footer> .footer-left {
+.card >.card-front> .footer> .footer-left {
+  width:48%;
+}
+.card >.card-front> .footer> .footer-right {
   width:50%;
 }
-.card > .footer> .footer-right {
-  width:50%;
-}
-.card > .footer> .footer-left > .fa-print {
+.card >.card-front> .footer> .footer-left > .fa-print {
   color: rgb(209, 22, 22);
   margin-left: 0.2rem;
 }
-.card > .footer> .footer-right >.fa-print {
+.card > .card-front>.footer> .footer-right >.fa-print {
   float:right; /* canh cho the i icon khi dung flex*/
   color: rgb(2, 202, 2);
   font-size: 18px;
 
 }
-.card > .footer> .footer-right >.fa-cash-register {
+.card >.card-front> .footer> .footer-right >.fa-cash-register {
   float:right;
   color: rgb(42, 190, 22);
   font-size: 18px;
   margin-right: 0.5rem;
 }
-.card > .footer> .footer-left > .fa-print:active {
+.card > .card-front>.footer> .footer-left > .fa-print:active {
   color: rgb(233, 83, 83);
 }
-.card > .footer> .footer-right >.fa-print:active {
+.card >.card-front> .footer> .footer-right >.fa-print:active {
   color: rgb(17, 110, 5);
 }
-.card > .footer> .footer-right >.fa-cash-register:active {
+.card >.card-front> .footer> .footer-right >.fa-cash-register:active {
   color: rgb(17, 110, 5);
 
 }
