@@ -13,23 +13,33 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
 </head>
 <body>
   <div class="list-cards">
+    <div class="filter-sort">
     <div class="filter-hamlet">
     <select class="form-control" name="hamlet" id="hamlet" data-filter>
-      <option>Chọn ấp</option>
+      <option value="all">Chọn ấp</option>
     </select>
   </div>
+  <div class="sort">
+    <select class="sort" id="sort" onchange="ascending()" >
+      <option value="default">Sắp xếp mặc định</option>
+      <option value="owe-most">Nợ nhiều nhất</option>
+      <option value="used-most">Dùng nhiều nhất</option>
+      <option value="older">Lâu nhất chưa chốt</option>
+    </select>
+  </div>
+</div>
   <div class="search-wrapper">
-    <label for="search">Search Users</label>
-    <input type="search" id="search" data-search>
+    <label for="search">Tìm kiếm</label>
+    <input type="search" id="search" placeholder="Nhập số 4 số ID hoặc tên" data-search>
   </div>
   <div class="user-cards" data-user-cards-container></div>
   <template data-user-template>
  <!-- Card front -->
-    <div class="card">
-
+  <div class="card">
+    <div class="card-front">
       <div class="header-id" data-header_id>
         <div class="header-id-left" data-header_id-left onClick="backCard()"></div>
-        <div class="header-id-right" data-header_id-right></div>
+        <div class="header-id-right" data-header_id-right ></div>
       </div>
       <div class="header-date">
         <div class="header-date-left" data-header_date-left> </div>
@@ -48,13 +58,17 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
         <div class="footer-right">
           <i class="fa fa-print" onclick="test()"></i>
           <i class="fa-solid fa-cash-register" onClick="alert(this.innerHTML);"></i>
+          <!-- <i class="fa-solid fa-rotate-left" ></i> -->
         </div>
       </div>
     </div>
+    <!-- <div class="card-back">
+      Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and
+     </div> -->
+
+  </div>
      <!-- Card back-->
-     <div class="card-back">
-      <p class="back">Day la noi dung phia sau cua card</p>
-     </div>
+
   </template>
 </div>
 </body>
