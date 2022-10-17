@@ -450,6 +450,7 @@ function printBill(IDCS) {
 function printpage() {
   // window.print()
   PrintContent();
+  modalghi.checked = true;
 }
 function PrintContent() {
   var DocumentContainer = document.getElementById("phieu");
