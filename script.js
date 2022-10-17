@@ -2,28 +2,69 @@ const userCardTemplate = document.querySelector("[data-user-template]");
 const userCardContainer = document.querySelector("[data-user-cards-container]");
 const searchInput = document.querySelector("[data-search]");
 const filterSelected = document.querySelector("[data-filter]");
+const checkSearch = document.getElementById("check-search");
+const backicon = document.getElementById("backicon");
+const menuicon = document.getElementById("menuicon");
 const clickCard = document.getElementsByClassName("fa-rotate-left");
 const modalghi = document.getElementById("modalghi");
 const btnQr = document.getElementById("btnQr");
 
 // const clickOnCard = document.querySelectorAll("card");
-
+// back icon
+// console.log(menuicon);
+function backIcon() {
+  modalghi.checked = false;
+  // xóa phiếu cũ trên modal
+  document.querySelector("[phieu]").textContent = "";
+  // xóa ghi cũ tren modal
+  document.querySelector("[data-ghi]").textContent = "";
+  // tắt backicon
+  backicon.classList.toggle("hide");
+  // menuicon.classList.toggle("hide");
+  // trả lại biến chặn hàm render ghi
+  return (cancel = false);
+}
 //Array users response được xử lý đưa vào biến nhớ tạm users thay cho lưu trên local Storage
 let users = [];
 let ghidata = [];
 let ghict = [];
 // biến dừng 1 hàm để hàm khác chạy
 var cancel = false;
-// reset cancel mỗi lần đóng cửa số modal ghi
+// menu hiện khi backicon tắt
+// backicon.addEventListener("click", function () {
+//   menuicon.classList.toggle("hide", false);
+// });
+// set backicon hide
+backicon.classList.toggle("hide");
+// reset cancel mỗi lần đóng cửa số modal ghi - bấm vùng đen vẫn được-trừ trên phone
 modalghi.addEventListener("change", function () {
+  console.log(this.checked);
   if (!this.checked) {
+    //modal ko check là bị tắt
     // xóa phiếu cũ trên modal
+
     document.querySelector("[phieu]").textContent = "";
     // xóa ghi cũ tren modal
     document.querySelector("[data-ghi]").textContent = "";
+    backicon.classList.toggle("hide");
+    return (cancel = false);
+  } else {
+    //modal mở thì mở icon back
+    backicon.classList.toggle("hide", false);
     return (cancel = false);
   }
 });
+checkSearch.addEventListener("change", function () {
+  if (this.checked) {
+    // tắt backicon
+    backicon.classList.toggle("hide");
+    menuicon.classList.toggle("hide");
+  } else {
+    backicon.classList.toggle("hide", false);
+    menuicon.classList.toggle("hide", false);
+  }
+});
+
 filterSelected.addEventListener("change", (e) => {
   // khóa của Filter Select là change
   const value = e.target.value.toLowerCase();
@@ -74,7 +115,8 @@ function getGhiOne() {
   setTimeout(() => {
     getGhiID(IDKH);
   }, 100);
-
+  // mở backicon lên
+  backicon.classList.toggle("hide", false);
   modalghi.checked = true;
 }
 function getGhiID(IDKH) {
@@ -295,8 +337,7 @@ function ascending() {
 }
 // clear search by uncheck
 function clearnSearch() {
-  const check = document.getElementById("check");
-  if (check.checked) {
+  if (checkSearch.checked) {
     //checked la close
     document.getElementById("search").value = "";
     // tự động hiện lại danh sách
@@ -328,8 +369,8 @@ function uniqueArray4(a) {
 //GET GHI CS JSON - ham fetch khong long ham thi no se chay luon
 
 // alert(this.innerHTML);
-// in only model https://stackoverflow.com/questions/1247534/print-a-modal-window-not-the-rest-of-the-page
-// https://stackoverflow.com/questions/3958510/print-contents-of-modalpanel
+// in only model
+// https://stackoverflow.com/questions/10493215/page-print-in-javascript
 function printBill(IDCS) {
   cancel = true;
   setTimeout(() => {
@@ -399,7 +440,7 @@ function printBill(IDCS) {
   <div class="container">
     <div class="k57">
       <h1>DNTN CẤP NƯỚC HỮU HÒA<br>
-        <i style="font-weight: normal;">Hữu Đạo-Châu Thành-Tiền Giang</i><br>
+        <i style="font-weight: normal; font-size: 12px">Hữu Đạo-Châu Thành-Tiền Giang</i><br>
         Hotline: 0903541722<br>
         ---------***---------
       </h1>
@@ -432,7 +473,7 @@ function printBill(IDCS) {
               <p class="rcorner" align="center" style="font-size: 14px; margin-bottom: 3px;" ><b>${owe}</b><i> ${vnd}</i></p>
               <p style="margin: auto;"><i style="line-height: 1.2;">${sotien}</i></p>
       <hr />
-      <p>Ngày tạo phiếu: ${datecr}</p>
+      <p>Ngày tạo: ${datecr}</p>
       <p><i>NV: ${Staff}</i> ☏ <i>${IDKH}</i></p>
       <p>Ghi chú: ${Note}</p>
       <hr />
@@ -445,32 +486,39 @@ function printBill(IDCS) {
 </div>`;
     document.querySelector("[phieu]").innerHTML = element;
   }, 50);
+  // mở backicon lên
+  backicon.classList.toggle("hide", false);
   return cancel; //div stop render ghiCS
 }
 function printpage() {
-  // window.print()
+  // window.print();
   PrintContent();
-  //modalghi.checked = true;
+  modalghi.checked = false;
+  // set backicon hide
+  backicon.classList.toggle("hide");
 }
+// tạo windown mới chỉ chứa nội dung in có head body
 function PrintContent() {
   var DocumentContainer = document.getElementById("phieu");
   var WindowObject = window.open(
     "",
     "PrintWindow",
-    "width=750,height=650,top=50,left=50,toolbars=no,scrollbars=yes,status=no,resizable=yes"
+    "width=1200,height=650,top=50,left=50,toolbars=no,scrollbars=yes,status=no,resizable=yes"
   );
-
-  WindowObject.document.write(DocumentContainer.innerHTML);
-  // chèn thêm css vào window open - đã chèn bên html rồi
-  // WindowObject.document.write(
-  //   '<link rel="stylesheet" type="text/css" href="stylesbill.css">'
-  // );
+  WindowObject.document.write("<html><head><title>Printwindow</title>");
+  // WindowObject.document.write('<link rel="stylesheet" href="stylesbill.css">'); //css ở đây Modal ko nhận - chỉ nhận trên Printwindown - css trên thân là tốt nhất
+  WindowObject.document.write(
+    '</head><body onload=" window.print()" onfocus="setTimeout(function () {window.close()},1000)">'
+  );
+  WindowObject.document.writeln(DocumentContainer.innerHTML);
+  WindowObject.document.write("</body></html>");
   WindowObject.document.close();
-  setTimeout(function () {
-    WindowObject.focus();
-    WindowObject.print();
-    WindowObject.close();
-  }, 2000);
+  // set ở đây sẽ ko in được được phone
+  // setTimeout(function () {
+  //   WindowObject.focus();
+  //   WindowObject.print();
+  //   WindowObject.close();
+  // }, 1000);
 }
 //  Date diff
 function getDateDifference(startDate, endDate) {
