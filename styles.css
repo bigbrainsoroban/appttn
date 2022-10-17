@@ -343,6 +343,7 @@ option {
   padding: 1em 2em;
   height: 50%;
   padding-top: 5.5rem;
+  padding-bottom: 5rem;
 }
 
 .modal__close {
