@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"> -->
   <link rel="stylesheet"
@@ -21,6 +22,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
       <option value="all">Chọn ấp</option>
     </select>
   </div>
+
   <div class="sort">
     <select class="sort" id="sort" onchange="ascending()" >
       <option value="default">Sắp xếp mặc định</option>
@@ -31,13 +33,16 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
   </div>
 </div>
 <div class="box">
-<input type="checkbox" id="check">
+<input type="checkbox" id="check-search">
   <div class="search-box">
-    <input type="search" id="search" placeholder="Nhập số 4 số ID hoặc tên" data-search><label for="check" class="icon">
+    <input type="search" id="search" placeholder="Nhập số 4 số ID hoặc tên" data-search><label for="check-search" class="icon">
       <i class="fas fa-search" onClick="clearnSearch()"></i>
     </label>
   </div>
 </div>
+<div class="backicon" id="backicon"><i class="fa fa-arrow-left" onclick="backIcon()"></i></div>
+<div class="menuicon" id="menuicon"><i class="fa-solid fa-bars"></i></div>
+<!-- <div class="menuicon"><i class='fa-solid fa-bars-filter'></i></i></div> -->
 
 </div>
   <div class="list-cards"  id='my_div'>
@@ -90,10 +95,18 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
     <!-- whatid sẽ để lại xác định index id cho các buttom ngoài card -->
     <div id="whatid" style="display: none;" whatid></div>
       <table class="ghict" id ="ghict" data-ghi></table>
+      <div class="ghi" id ="ghi" ghict>
+        <div class="ghi-cars">
+          <div class="card-ghi">
+            Đây là card
+          </div>
+        </div>
+      </div>
+
     <div id="phieu" phieu>
       <!-- nội dung phiếu -->
     </div>
-      <!-- bill id -->
+
 
   </div>
 </div>
