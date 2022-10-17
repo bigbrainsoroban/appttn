@@ -251,7 +251,7 @@ option {
 }
 .toolbar-bottom {
   position: fixed;
-  bottom: 0;
+  bottom: -2px;
   left: 0;
   z-index: 9999;
   width: 100%;
@@ -260,3 +260,140 @@ option {
   box-shadow: -1px -9px 7px rgb(0 0 0 / 25%);
 }
 /* https://stackoverflow.com/questions/30956644/fixed-toolbar-and-the-div-under-it-can-scroll */
+/* modal */
+.modal {
+  opacity: 0;
+  visibility: hidden;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 1rem;
+  left: 0;
+  text-align: left;
+  background: rgba(0,0,0, .9);
+  transition: opacity .25s ease;
+}
+
+.modal__bg {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  cursor: pointer;
+}
+
+.modal-state {
+  display: none;
+}
+
+.modal-state:checked + .modal {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal-state:checked + .modal .modal__inner {
+  top: 0;
+}
+
+.modal__inner {
+  transition: top .25s ease;
+  position: absolute;
+  top: -20%;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 50%;
+  margin: auto;
+  overflow: auto;
+  background: #fff;
+  border-radius: 5px;
+  padding: 1em 2em;
+  height: 50%;
+}
+
+.modal__close {
+  position: absolute;
+  right: 1em;
+  top: 1em;
+  width: 1.1em;
+  height: 1.1em;
+  cursor: pointer;
+}
+
+.modal__close:after,
+.modal__close:before {
+  content: '';
+  position: absolute;
+  width: 2px;
+  height: 1.5em;
+  background: #ccc;
+  display: block;
+  transform: rotate(45deg);
+  left: 50%;
+  margin: -3px 0 0 -1px;
+  top: 0;
+}
+
+.modal__close:hover:after,
+.modal__close:hover:before {
+  background: #aaa;
+}
+
+.modal__close:before {
+  transform: rotate(-45deg);
+}
+
+@media screen and (max-width: 768px) {
+
+  .modal__inner {
+    width: 90%;
+    height: 90%;
+    box-sizing: border-box;
+  }
+}
+
+
+/* Other
+ * =============================== */
+/* body {
+  padding: 1%;
+  font: 1/1.5em sans-serif;
+  text-align: center;
+} */
+
+.btnQr {
+  cursor: pointer;
+  background: #1916ce;
+  /* display: inline-block; */
+  height: 50px;
+  width: 50px;
+  border-radius: 25px;
+  position: absolute;
+  top: -22px;
+  right: calc(50vw - 25px);
+  /* 100vw =100% with 100vh =100% height- luôn canh giữa calc(50vw - 25px)-1/2 50px with của elemente */
+  display: flex;
+  /* auto cho QR giữ */
+  box-shadow: -1px -9px 7px rgb(0 0 0 / 25%);
+}
+
+.btnQr:hover,
+.btnQr:focus {
+  background: #1916ce;
+}
+
+.btnQr:active {
+  background: #1916ce;
+
+}
+.fa-qrcode {
+  color: #FF676D;
+  font-size: 30px;
+  margin: auto;
+
+}
+
+/* https://codepen.io/Idered/pen/DdeoeW */
+/* https://codepen.io/lexctk/pen/paQaBv */
+/* https://www.youtube.com/watch?v=W9XEARppU8s */
