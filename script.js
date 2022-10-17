@@ -360,6 +360,16 @@ function printBill(IDCS) {
     var ph = rowghi[0];
     var DW = new Date(ph.DW).toLocaleDateString("en-GB");
     var Ky = new Date(ph.DW).toLocaleDateString("en-GB").substring(3);
+    var MonBef = new Date(results[1].DW).toLocaleDateString("en-GB");
+    var d1 = new Date(results[1].DW);
+    var d2 = new Date(ph.DW);
+    var songay =
+      getDateDifference(d1, d2).years +
+      "n-" +
+      getDateDifference(d1, d2).months +
+      "th-" +
+      getDateDifference(d1, d2).days +
+      " ngày";
     var CSM = ph.CSM.toLocaleString("en");
     var CSC = ph.CSC.toLocaleString("en");
     var Num = (ph.CSM - ph.CSC).toLocaleString("en");
@@ -403,10 +413,10 @@ function printBill(IDCS) {
       <b>Tên KH : ${name}</b>
       <p>Ấp : ${ap}</p>
       <hr />
-      <p>Đến: <i>${DW}</i> Từ: <i>${IDKH}</i></p>
+      <p>Đến: <i>${DW}</i> Từ: <i>${MonBef}</i></p>
       <p style="margin-bottom: -5px;">Số mới : <b>${CSM}</b>
          Số cũ : <b>${CSC}</b></p>
-      <p>Tiêu thụ: <b>${Num}</b> m<sup>3</sup><i  style="font-size: 11px;">${IDKH}</i></p>
+      <p>Tiêu thụ: <b>${Num}</b> m<sup>3</sup><i  style="font-size: 11px;">${songay}</i></p>
       <p style="font-size: 11px; margin: -2px auto;">Thuế 5%: <i>${Thue}</i>  Phí MT 10%: <i>${Phi}</i> </p>
       <p>Tổng tiền : <b>${Money}</b> (VNĐ)</p>
       <hr />
@@ -461,3 +471,41 @@ function PrintContent() {
     WindowObject.close();
   }, 1000);
 }
+//  Date diff
+function getDateDifference(startDate, endDate) {
+  if (startDate > endDate) {
+    console.error("Start date must be before end date");
+    return null;
+  }
+  var startYear = startDate.getFullYear();
+  var startMonth = startDate.getMonth();
+  var startDay = startDate.getDate();
+
+  var endYear = endDate.getFullYear();
+  var endMonth = endDate.getMonth();
+  var endDay = endDate.getDate();
+
+  // We calculate February based on end year as it might be a leep year which might influence the number of days.
+  var february =
+    (endYear % 4 == 0 && endYear % 100 != 0) || endYear % 400 == 0 ? 29 : 28;
+  var daysOfMonth = [31, february, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+
+  var startDateNotPassedInEndYear =
+    endMonth < startMonth || (endMonth == startMonth && endDay < startDay);
+  var years = endYear - startYear - (startDateNotPassedInEndYear ? 1 : 0);
+
+  var months = (12 + endMonth - startMonth - (endDay < startDay ? 1 : 0)) % 12;
+
+  // (12 + ...) % 12 makes sure index is always between 0 and 11
+  var days =
+    startDay <= endDay
+      ? endDay - startDay
+      : daysOfMonth[(12 + endMonth - 1) % 12] - startDay + endDay;
+
+  return {
+    years: years,
+    months: months,
+    days: days,
+  };
+}
+//  Date diff
