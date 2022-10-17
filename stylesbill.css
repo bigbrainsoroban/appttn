@@ -1,0 +1,86 @@
+/* Bill */
+    /* Cần cái này để in ra được backgroud image và color */
+    /* * { */
+      /* -webkit-print-color-adjust: exact !important; */
+      /* Chrome, Safari 6 – 15.3, Edge */
+      /* color-adjust: exact !important; */
+      /* Firefox 48 – 96 */
+      /* print-color-adjust: exact !important; */
+      /* Firefox 97+, Safari 15.4+ */
+    /* } */
+
+    .bill> .container > .k57 {
+      font-family: Tahoma;
+      /* head ko khai thì dùng 1 loại*/
+      font-size: 13px;
+      line-height: 0.48;
+      /* độ giãn dòng*/
+      width: 57.5mm;
+      height: 150mm;
+      margin: 0.5mm;
+      /* T-R-B-L height ra chieu dai in-sau canh giu bi zoom to hon giảm h lai*/
+      /* background-image: url("bgPhieuInNgan_mo.jpg");
+      background-repeat: repeat-y; */
+
+    }
+
+    /* kho giay */
+    .bill> .container {
+      display: flex;
+      justify-content: center;
+    }
+
+    /* canh giua noi dung */
+    .bill> .container > .k57 h1 {
+      text-align: center;
+      font-size: 14px;
+      font-weight: bold;
+      line-height: 1.35;
+    }
+
+    .bill> .container > .k57 h2 {
+      text-align: center;
+      /* canh dòng ko khai là left*/
+      font-size: 16px;
+      font-weight: bold;
+      line-height: 0.3;
+      margin-top: -5px;
+    }
+
+    .bill> .container > .k57 >.fa  {
+      border: none;
+      text-align: left;
+      padding-left: 3rem;
+      color: blue;
+      font-size: 30px;
+      background-color: white;
+      margin-top: 10px;
+      width: 100%;
+    }
+
+    .bill> .container > .k57>.fa :active {
+      color: aqua;
+    }
+
+    .bill> .container > .k57 hr {
+      border: none;
+      border-top: 1.5px dashed;
+    }
+
+    .bill> .container > .k57 .rcorner {
+      border-radius: 25px;
+      border: 1.5px dashed #000000;
+      padding: 6px;
+      width: 35mm;
+      margin: auto;
+    }
+
+    /* an nut in */
+    @media only print {
+      .bill> .container > .k57>.fa {
+        visibility: hidden;
+      }
+    }
+    /* an Timestamp and title */
+    @page { size: auto;  margin: 0mm; }
+/* Bill */
