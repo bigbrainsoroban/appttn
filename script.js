@@ -460,7 +460,7 @@ function PrintContent() {
     "width=750,height=650,top=50,left=50,toolbars=no,scrollbars=yes,status=no,resizable=yes"
   );
 
-  WindowObject.document.writeln(DocumentContainer.innerHTML);
+  WindowObject.document.write(DocumentContainer.innerHTML);
   // chèn thêm css vào window open - đã chèn bên html rồi
   // WindowObject.document.write(
   //   '<link rel="stylesheet" type="text/css" href="stylesbill.css">'
