@@ -470,7 +470,7 @@ function PrintContent() {
     WindowObject.focus();
     WindowObject.print();
     WindowObject.close();
-  }, 1000);
+  }, 2000);
 }
 //  Date diff
 function getDateDifference(startDate, endDate) {
