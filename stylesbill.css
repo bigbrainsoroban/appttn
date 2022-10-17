@@ -74,13 +74,13 @@
       width: 35mm;
       margin: auto;
     }
+ /* an nut in - qua Print window mất link fonts nên tự ẩn luôn */
+ /* @media only print {
+  .bill> .container > .k57>.fa {
+    visibility: hidden;
+  }
+} */
+/* an Timestamp and title */
+/* @page { size: auto;  margin: 0mm; } */
 
-    /* an nut in */
-    @media only print {
-      .bill> .container > .k57>.fa {
-        visibility: hidden;
-      }
-    }
-    /* an Timestamp and title */
-    @page { size: auto;  margin: 0mm; }
 /* Bill */
