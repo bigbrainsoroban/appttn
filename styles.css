@@ -3,6 +3,7 @@
 } */
 .toolbar-top {
   display: block;
+  z-index: 9999;
   position: fixed;
   top: 0;
   left: 0;
@@ -11,6 +12,36 @@
   background: #1916ce;
   box-shadow: 0px 9px 8px rgb(0 0 0 / 25%);
 }
+.toolbar-top > .backicon > .fa-arrow-left {
+  position: fixed;
+  top: 2rem;
+  z-index: 999;
+  color: rgb(255, 255, 255);
+  font-size: 1.5rem;
+  margin-left: 1rem;
+
+}
+.toolbar-top > .menuicon {
+  display: flex;
+}
+.toolbar-top > .menuicon > .fa-bars {
+  position: fixed;
+  top: 2rem;
+  right: 1rem;
+  z-index: 999;
+  color: rgb(252, 252, 252);
+  font-size: 1.5rem;
+
+}
+/* .toolbar-top > .menuicon > .fa-bars-filter {
+  position: fixed;
+  top: 2rem;
+  right: 1rem;
+  z-index: 999;
+  color: rgb(255, 255, 255);
+  font-size: 1.5rem;
+
+} */
 /* .search-wrapper {
   display: flex;
   flex-direction: column;
@@ -31,7 +62,7 @@
   border-radius: 25px;
   transition: all 0.3s ease;
 }
-#check:checked ~ .search-box{
+#check-search:checked ~ .search-box{
   /* chinh do rong search o day */
   max-width: 330px;
 }
@@ -62,13 +93,13 @@
   font-size: 20px;
   border-radius: 25px;
 }
-#check:checked ~ .search-box .icon{
+#check-search:checked ~ .search-box .icon{
   background: #FF676D;
   color: #FFF;
   width: 60px;
   border-radius: 0 25px 25px 0;
 }
-#check{
+#check-search{
   display: none;
 }
 /* Search box */
@@ -272,6 +303,7 @@ option {
   text-align: left;
   background: rgba(0,0,0, .9);
   transition: opacity .25s ease;
+
 }
 
 .modal__bg {
@@ -310,6 +342,7 @@ option {
   border-radius: 5px;
   padding: 1em 2em;
   height: 50%;
+  padding-top: 5.5rem;
 }
 
 .modal__close {
@@ -347,12 +380,27 @@ option {
 @media screen and (max-width: 768px) {
 
   .modal__inner {
-    width: 90%;
-    height: 90%;
+    width: 100%;
+    height: 100%;
     box-sizing: border-box;
   }
 }
+@media screen and (min-width:800px) {
 
+  .modal__inner {
+    width: 80%;
+    height: 100%;
+    box-sizing: border-box;
+  }
+}
+  @media screen and (min-width:1440px) {
+
+    .modal__inner {
+      width: 40%;
+      height: 100%;
+      box-sizing: border-box;
+    }
+}
 
 /* Other
  * =============================== */
@@ -397,3 +445,23 @@ option {
 /* https://codepen.io/Idered/pen/DdeoeW */
 /* https://codepen.io/lexctk/pen/paQaBv */
 /* https://www.youtube.com/watch?v=W9XEARppU8s */
+.ghi-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+  gap: 0.8rem;
+  margin-top: 1rem;
+  /* Xoay */
+  /* position: relative;
+  transform-style: preserve-3d;
+  transition: all 0.8s ease; */
+}
+
+.card-ghi {
+  border: 0.2px solid black;
+  border-radius: 5px;
+  background-color: white;
+  padding: 0.5rem;
+  /* Xoay */
+  /* transform-style: preserve-3d;
+  transition: all 0.8s ease; */
+}
