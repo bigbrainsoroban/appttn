@@ -8,19 +8,28 @@ const menuicon = document.getElementById("menuicon");
 const clickCard = document.getElementsByClassName("fa-rotate-left");
 const modalghi = document.getElementById("modalghi");
 const btnQr = document.getElementById("btnQr");
+// login
+const userinfo = JSON.parse(localStorage.getItem("userinfo"));
+// const token = userinfo.Token;
+const token =
+  "IntcInVAWQiOmZhbHNlLCJ1c2VyX3ZlcmlmaV9tZXMiOiAzZXJcIjpcIkEgSGllcFwiLCBcInB3XCI6XCIyNTEwNjRcIiwgXCJleHBpcnlfZGF0ZVwiOlwiVGh1IE9jdCAyMCAyMDIyIDE5OjI5OjE2IEdNVCswNzAwIChHaT8gPz9uZyBEPz9uZylcIn0i";
 
+const user = encodeURIComponent("A Hiep");
+const pw = encodeURIComponent("251064");
 // const clickOnCard = document.querySelectorAll("card");
 // back icon
 // console.log(menuicon);
 function backIcon() {
   modalghi.checked = false;
+  resetmodal();
+}
+function resetmodal() {
   // xóa phiếu cũ trên modal
   document.querySelector("[phieu]").textContent = "";
   // xóa ghi cũ tren modal
-  document.querySelector("[data-ghi]").textContent = "";
+  document.querySelector("[ghi-cards-container]").textContent = "";
   // tắt backicon
   backicon.classList.toggle("hide");
-  // menuicon.classList.toggle("hide");
   // trả lại biến chặn hàm render ghi
   return (cancel = false);
 }
@@ -28,32 +37,14 @@ function backIcon() {
 let users = [];
 let ghidata = [];
 let ghict = [];
+let ghict_cards = [];
+
 // biến dừng 1 hàm để hàm khác chạy
 var cancel = false;
 // menu hiện khi backicon tắt
 // backicon.addEventListener("click", function () {
 //   menuicon.classList.toggle("hide", false);
 // });
-// set backicon hide
-backicon.classList.toggle("hide");
-// reset cancel mỗi lần đóng cửa số modal ghi - bấm vùng đen vẫn được-trừ trên phone
-modalghi.addEventListener("change", function () {
-  console.log(this.checked);
-  if (!this.checked) {
-    //modal ko check là bị tắt
-    // xóa phiếu cũ trên modal
-
-    document.querySelector("[phieu]").textContent = "";
-    // xóa ghi cũ tren modal
-    document.querySelector("[data-ghi]").textContent = "";
-    backicon.classList.toggle("hide");
-    return (cancel = false);
-  } else {
-    //modal mở thì mở icon back
-    backicon.classList.toggle("hide", false);
-    return (cancel = false);
-  }
-});
 checkSearch.addEventListener("change", function () {
   if (this.checked) {
     // tắt backicon
@@ -62,6 +53,22 @@ checkSearch.addEventListener("change", function () {
   } else {
     backicon.classList.toggle("hide", false);
     menuicon.classList.toggle("hide", false);
+  }
+});
+// set backicon hide
+backicon.classList.toggle("hide");
+// reset cancel mỗi lần đóng cửa số modal ghi - bấm vùng đen vẫn được-trừ trên phone
+modalghi.addEventListener("change", function () {
+  console.log(this.checked);
+  if (!this.checked) {
+    //modal ko check là bị tắt
+    resetmodal();
+  } else {
+    //modal mở thì mở icon back
+    backicon.classList.toggle("hide", false);
+
+    // chặn  ghict dữ liệu
+    return (cancel = false);
   }
 });
 
@@ -94,7 +101,7 @@ searchInput.addEventListener("input", (e) => {
 // nút quét QR https://github.com/mebjas/html5-qrcode
 btnQr.addEventListener("click", (e) => {
   document.querySelector(
-    "[data-ghi]"
+    "[ghi-cards-container]"
   ).innerHTML = `<div style="width: 500px" id="reader"></div>`;
 });
 // lick on card
@@ -129,37 +136,117 @@ function getGhiID(IDKH) {
       return b.RN - a.RN; //firstnew
     });
     console.log(results);
-    renderghiId(results);
+    ghict_cards = results.map((result) => {
+      //map ra từng dòng và đẩy vào ar results
+      return renderghiId(result);
+    });
   }
 }
-function renderghiId(results) {
-  // const ghi = document.querySelector("[data-ghi]");
-  // ghi.textContent = result.IDCS;
-  let element = `<tr>
-  <th>ID</th>
-  <th>CSM</th></tr>`;
-  results.map((value) => {
-    element += `<tr><td>${value.IDCS}</td><td>${value.CSM}</td></tr>`;
-  });
-  document.querySelector("[data-ghi]").innerHTML = element;
-}
 
+// function renderghiId(results) {
+//   // const ghi = document.querySelector("[data-ghi]");
+//   // ghi.textContent = result.IDCS;
+//   let element = `<tr>
+//   <th>ID</th>
+//   <th>CSM</th></tr>`;
+//   results.map((value) => {
+//     element += `<tr><td>${value.IDCS}</td><td>${value.CSM}</td></tr>`;
+//   });
+//   document.querySelector("[data-ghi]").innerHTML = element;
+// }
+function renderghiId(result) {
+  const ghi_cards_container = document.querySelector("[ghi-cards-container]");
+  const ghi_card_template = document.querySelector("[ghi-card-template]");
+  const cardG = ghi_card_template.content.cloneNode(true).children[0];
+  const ghi_header_left = cardG.querySelector("[ghi-header_left]");
+  const ghi_header_right = cardG.querySelector("[ghi-header_right]");
+  const ghi_body = cardG.querySelector("[ghi-body]");
+
+  ghi_header_left.textContent = new Date(result.DW).toLocaleDateString("en-GB");
+  ghi_header_right.textContent = result.MoRecei.toLocaleString("en");
+  function checknote() {
+    if (result.Note !== "") {
+      var maintenance = `Bảo trì: 🛠️ ${result.Note} 📢 ${result.TTXL}`;
+    } else {
+      var maintenance = "";
+    }
+    return maintenance;
+  }
+  if ((result.Owe < 0) & (result.T4 !== "Đã TT")) {
+    ghi_header_left.setAttribute("style", " color: rgb(209, 22, 22);");
+  }
+  ghi_body.setAttribute("style", "white-space: pre;"); //có cái này mới xuống hàng trong .textContent
+  ghi_body.textContent +=
+    "⏲️" +
+    result.CSM.toLocaleString("en") +
+    "🕰️" +
+    result.CSC.toLocaleString("en") +
+    "💦" +
+    result.Num.toLocaleString("en") +
+    "💲" +
+    result.Money.toLocaleString("en") +
+    "💸" +
+    result.Owe.toLocaleString("en") +
+    "\n";
+  ghi_body.textContent +=
+    "🐣" +
+    result.T4 +
+    "⏳" +
+    new Date(result.DT).toLocaleString("en-GB").slice(0, -3) +
+    "👮🏽‍♂️" +
+    result.Staff +
+    "\n";
+  ghi_body.textContent += checknote();
+
+  ghi_cards_container.append(cardG);
+  return {
+    IDCS: result.IDCS,
+    owe: result.Owe,
+    tt: result.T4,
+    element: cardG,
+  }; //chứa giá trị tìm kiếm trong CardContainer
+}
 // APIs
+//get login
+const apiLogin =
+  "https://script.google.com/macros/s/AKfycbycmTkUbfwdQVUAQwIvO7gFg1p-cZSs_0F2I3bEIJRyuTd13ZnYridmjpgisRs7kMld/exec?action=login&user=" +
+  user +
+  "&pw=" +
+  pw;
 // get data All sheet query
 const apiGetAllData =
-  "https://script.google.com/macros/s/AKfycbwYk087R2oQDH2VB20gNS6GLANflXYtdk1ufxfh-UNuOZ2il3ypUC8yZRXFMFCe8BIr2Q/exec?action=getdataAll";
+  "https://script.google.com/macros/s/AKfycbwYk087R2oQDH2VB20gNS6GLANflXYtdk1ufxfh-UNuOZ2il3ypUC8yZRXFMFCe8BIr2Q/exec?action=getdataAll&token=" +
+  token;
 // get data theo ap sheet query
 const apigetDataAp =
-  "https://script.google.com/macros/s/AKfycbwYk087R2oQDH2VB20gNS6GLANflXYtdk1ufxfh-UNuOZ2il3ypUC8yZRXFMFCe8BIr2Q/exec?action=getDataAp&ap=";
+  "https://script.google.com/macros/s/AKfycbwYk087R2oQDH2VB20gNS6GLANflXYtdk1ufxfh-UNuOZ2il3ypUC8yZRXFMFCe8BIr2Q/exec?action=getDataAp&token=" +
+  token +
+  "&ap=";
 // get ghi all sheet main
 const apigetGhiAll =
-  "https://script.google.com/macros/s/AKfycbycmTkUbfwdQVUAQwIvO7gFg1p-cZSs_0F2I3bEIJRyuTd13ZnYridmjpgisRs7kMld/exec?action=getghiAll";
+  "https://script.google.com/macros/s/AKfycbycmTkUbfwdQVUAQwIvO7gFg1p-cZSs_0F2I3bEIJRyuTd13ZnYridmjpgisRs7kMld/exec?action=getghiAll&token=" +
+  token;
 // get ghi theo ap sheet main
 const apigetGhiAp =
-  "https://script.google.com/macros/s/AKfycbycmTkUbfwdQVUAQwIvO7gFg1p-cZSs_0F2I3bEIJRyuTd13ZnYridmjpgisRs7kMld/exec?action=getghiAp&ap=";
+  "https://script.google.com/macros/s/AKfycbycmTkUbfwdQVUAQwIvO7gFg1p-cZSs_0F2I3bEIJRyuTd13ZnYridmjpgisRs7kMld/exec?action=getghiAp&token=" +
+  token +
+  "ap=";
 // get data TH theo ID sheet main
 const apigetdataID =
-  "https://script.google.com/macros/s/AKfycbycmTkUbfwdQVUAQwIvO7gFg1p-cZSs_0F2I3bEIJRyuTd13ZnYridmjpgisRs7kMld/exec?action=getdataID&id=";
+  "https://script.google.com/macros/s/AKfycbycmTkUbfwdQVUAQwIvO7gFg1p-cZSs_0F2I3bEIJRyuTd13ZnYridmjpgisRs7kMld/exec?action=getdataID&token=" +
+  token +
+  "id=";
+// login lay token user luu vao localStorage
+fetch(apiLogin)
+  .then((res) => res.json()) //ra json Js bằng với Json Paste - Axios thì ko cần
+  .then((data) => {
+    //luu localStorage
+    localStorage.setItem("userinfo", JSON.stringify(data));
+  })
+  .catch((error) => {
+    console.log(error);
+  });
+
 // lấy dữ liệu về - xử lý bất đồng bộ
 fetch(apiGetAllData)
   .then((res) => res.json()) //ra json Js bằng với Json Paste - Axios thì ko cần
@@ -351,9 +438,9 @@ function clearnSearch() {
 }
 //Helper
 function test() {
-  const x = document.getElementsByClassName("header-id-left")[1].innerHTML; //[1] lay index 1 trong array class giống nhau
-
-  console.log(x);
+  // const x = document.getElementsByClassName("header-id-left")[1].innerHTML; //[1] lay index 1 trong array class giống nhau
+  // console.log(x);
+  console.log(ghict_cards);
 }
 const typeOf = (value) => Object.prototype.toString.call(value).slice(8, -1); //tạo hàm check date
 //lấy - Lọc dữ liệu từ data - render ra drop list Ap
@@ -372,6 +459,7 @@ function uniqueArray4(a) {
 // in only model
 // https://stackoverflow.com/questions/10493215/page-print-in-javascript
 function printBill(IDCS) {
+  resetmodal();
   cancel = true;
   setTimeout(() => {
     // vì IDKH ghi từ div Card vào class whatid cần thời gian
@@ -474,7 +562,7 @@ function printBill(IDCS) {
               <p style="margin: auto;"><i style="line-height: 1.2;">${sotien}</i></p>
       <hr />
       <p>Ngày tạo: ${datecr}</p>
-      <p><i>NV: ${Staff}</i> ☏ <i>${IDKH}</i></p>
+      <p><i>NV: ${Staff}</i> ☏ <i>${userinfo.user_phone}</i></p>
       <p>Ghi chú: ${Note}</p>
       <hr />
       <p align="center"><i>**Chân thành cảm ơn quý khách**</i></p>
