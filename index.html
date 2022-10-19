@@ -50,7 +50,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
   <template data-user-template>
  <!-- Card front -->
   <div class="card" onclick="getGhiOne(this)" >
-    <div class="card-front">
+
       <div class="header-id" data-header_id>
         <div class="header-id-left" data-header_id-left></div>
         <div class="header-id-right" data-header_id-right ></div>
@@ -75,14 +75,11 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
           <!-- <i class="fa-solid fa-rotate-left" ></i> -->
         </div>
       </div>
-    </div>
-    <!-- <div class="card-back">
-      Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.
-     </div> -->
+
 
   </div>
 
-     <!-- Card back-->
+
 
   </template>
 </div>
@@ -94,14 +91,26 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
     <label class="modal__close" for="modalghi"></label>
     <!-- whatid sẽ để lại xác định index id cho các buttom ngoài card -->
     <div id="whatid" style="display: none;" whatid></div>
-      <table class="ghict" id ="ghict" data-ghi></table>
-      <div class="ghi" id ="ghi" ghict>
-        <div class="ghi-cars">
+
+        <div class="ghi-cards-container" ghi-cards-container></div>
+        <!-- phần card chi tiết -->
+      <template ghi-card-template>
+        <div class="ghi-cards" id="ghi-cards">
           <div class="card-ghi">
-            Đây là card
+            <div class="ghi-header">
+              <div class="ghi-header_left" ghi-header_left></div>
+              <div class="ghi-header_right" ghi-header_right ></div>
+            </div>
+            <div class="ghi-body" ghi-body> </div>
+            <div class="ghi-footer">
+              <div class="ghi-footer_left"><i class="fa-solid fa-pen-to-square"></i> <i class="fa fa-trash" aria-hidden="true"></i></div>
+              <div class="ghi-footer_right">  <i class="fa fa-print"  onClick="printBill(this)"></i> <i class="fa-solid fa-sack-dollar" onClick="test()"></i></div>
+            </div>
           </div>
         </div>
-      </div>
+      </template>
+        <!-- phần card chi tiết -->
+
 
     <div id="phieu" phieu>
       <!-- nội dung phiếu -->
