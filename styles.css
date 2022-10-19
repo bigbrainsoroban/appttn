@@ -10,7 +10,7 @@
   width: 100%;
   height: 4.5rem;
   background: #1916ce;
-  box-shadow: 0px 9px 8px rgb(0 0 0 / 25%);
+  box-shadow: 0px 9px 8px rgb(0 0 0 / 20%);
 }
 .toolbar-top > .backicon > .fa-arrow-left {
   position: fixed;
@@ -54,50 +54,53 @@
 
 .search-box {
   position: relative;
-  height: 50px;
-  max-width: 50px;
+  height: 40px;
+  max-width: 40px;
   margin: auto;
   /* chỉnh độ cao bong đổ */
   /* box-shadow: 0 5px 10px rgba(0, 0, 0, 0.25); */
-  border-radius: 25px;
+  border-radius: 20px;
   transition: all 0.3s ease;
 }
 #check-search:checked ~ .search-box{
   /* chinh do rong search o day */
-  max-width: 330px;
+  max-width: 280px;
 }
 .search-box input{
  position: absolute;
  height: 100%;
  width: 100%;
- border-radius: 25px;
+ border-radius: 20px;
  background: #fff;
  outline: none;
  border: none;
  padding-left: 20px;
- font-size: 18px;
+ font-size: 16px;
  /* chỉnh độ cao */
  top: -15px;
 }
+.search-box input::placeholder{
+  font: 16px sans-serif;
+ }
 .search-box .icon{
   position: absolute;
   right: -2px;
    /* chỉnh độ cao */
   top: -15px;
-  width: 50px;
+  width: 40px;
   background: #FFF;
   height: 100%;
   text-align: center;
-  line-height: 50px;
+  line-height: 40px;
   color: #FF676D;
   font-size: 20px;
-  border-radius: 25px;
+  border-radius: 20px;
 }
 #check-search:checked ~ .search-box .icon{
   background: #FF676D;
   color: #FFF;
-  width: 60px;
-  border-radius: 0 25px 25px 0;
+  width: 50px;
+  border-radius: 0 20px 20px 0;
 }
 #check-search{
   display: none;
@@ -136,6 +139,7 @@ option {
 .list-cards {
   overflow: scroll;
   padding-top: 3.5rem;
+  padding-bottom: 3rem;
 }
 
 .user-cards {
@@ -154,119 +158,95 @@ option {
   border-radius: 5px;
   background-color: white;
   padding: 0.5rem;
-  /* Xoay */
-  /* transform-style: preserve-3d;
-  transition: all 0.8s ease; */
+
 }
 .card:hover {
   box-shadow: 3px 3px 3px #888888;
 }
-/* .card:active {
-  transform: rotateY(180deg);
-} */
-/* .card >.card-front {
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
-  overflow: hidden;
 
-} */
-/* .card >.card-back {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  /* định vị noi dung sau bằng phía trước */
-  /* -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
-  background-color: rgb(125, 221, 154);
-  overflow: hidden;
-  transform: rotateY(180deg); */
-  /* có trans mới hiện nôi dung sau */
-/* }  */
-.card >.card-front> .header-id {
+.card >.header-id {
   margin-bottom: .25rem;
   font-size: 1.1rem;
   font-weight: bold;
   display: flex;
 }
-.card >.card-front> .header-id >.header-id-left {
+.card > .header-id >.header-id-left {
   width:50%;
 }
-.card >.card-front> .header-id >.header-id-right {
+.card > .header-id >.header-id-right {
   width:50%;
   text-align:right; /* canh cho the i icon khi dung flex*/
 
 }
-.card >.card-front>.header-date {
+.card >.header-date {
   margin-bottom: .25rem;
   font-size: 0.8rem;
   font-weight: lighter;
   color: rgb(58, 57, 57);
   display: flex;
 }
-.card >.card-front>.header-date >.header-date-left {
+.card >.header-date >.header-date-left {
   width:50%;
 }
-.card >.card-front>.header-date >.header-date-right {
+.card >.header-date >.header-date-right {
   width:50%;
   text-align:right; /* canh cho the i icon khi dung flex*/
 }
-.card >.card-front>.header-info {
+.card >.header-info {
   margin-bottom: .25rem;
   font-size: 0.8rem;
   font-weight: lighter;
   color: rgb(58, 57, 57);
   display: flex;
 }
-.card >.card-front>.header-info >.header-info-left {
+.card >.header-info >.header-info-left {
   width:50%;
 }
-.card >.card-front>.header-info >.header-info-right {
+.card >.header-info >.header-info-right {
   width:50%;
   text-align:right; /* canh cho the i icon khi dung flex*/
 }
-.card >.card-front> .body {
+.card > .body {
   font-size: 1.1rem;
   color: #777;
   margin-left: 0.2rem;
 }
-.card >.card-front> .footer {
+.card > .footer {
   margin-bottom: .1rem;
   margin-top: .5rem;
   display: flex; /* mới chia 2 cột*/
 
 }
-.card >.card-front> .footer> .footer-left {
+.card > .footer> .footer-left {
   width:48%;
 }
-.card >.card-front> .footer> .footer-right {
+.card > .footer> .footer-right {
   width:50%;
 }
-.card >.card-front> .footer> .footer-left > .fa-print {
+.card > .footer> .footer-left > .fa-print {
   color: rgb(209, 22, 22);
   margin-left: 0.8rem;
   font-size: 19px;
 }
-.card > .card-front>.footer> .footer-right >.fa-print {
+.card > .footer> .footer-right >.fa-print {
   float:right; /* canh cho the i icon khi dung flex*/
   color: rgb(2, 202, 2);
   font-size: 19px;
   margin-right: -0.1rem;
 }
-.card >.card-front> .footer> .footer-right >.fa-cash-register {
+.card > .footer> .footer-right >.fa-cash-register {
   float:right;
   color: rgb(42, 190, 22);
   font-size: 19px;
   margin-right: 1.1rem;
 }
-.card > .card-front>.footer> .footer-left > .fa-print:active {
+.card > .footer> .footer-left > .fa-print:active {
   color: rgb(233, 83, 83);
 }
-.card >.card-front> .footer> .footer-right >.fa-print:active {
+.card > .footer> .footer-right >.fa-print:active {
   color: rgb(17, 110, 5);
 }
-.card >.card-front> .footer> .footer-right >.fa-cash-register:active {
+.card >.footer> .footer-right >.fa-cash-register:active {
   color: rgb(17, 110, 5);
 
 }
@@ -288,7 +268,7 @@ option {
   width: 100%;
   height: 3rem;
   background: #1916ce;
-  box-shadow: -1px -9px 7px rgb(0 0 0 / 25%);
+  box-shadow: -1px -9px 7px rgb(0 0 0 / 20%);
 }
 /* https://stackoverflow.com/questions/30956644/fixed-toolbar-and-the-div-under-it-can-scroll */
 /* modal */
@@ -340,10 +320,11 @@ option {
   overflow: auto;
   background: #fff;
   border-radius: 5px;
-  padding: 1em 2em;
+  padding: 0.5em 0.5em;
   height: 50%;
   padding-top: 5.5rem;
   padding-bottom: 5rem;
+
 }
 
 .modal__close {
@@ -377,13 +358,28 @@ option {
 .modal__close:before {
   transform: rotate(-45deg);
 }
+/* https://stackoverflow.com/questions/13550541/media-min-width-max-width */
+@media screen and (min-device-width: 350px) and (max-device-width:412px) {
 
+  .card-ghi > .ghi-body {
+    font-size: 0.95rem;
+  }
+}
+@media screen and (max-width: 412px) {
+
+  .card-ghi > .ghi-body {
+    font-size: 0.95rem;
+  }
+}
 @media screen and (max-width: 768px) {
 
   .modal__inner {
     width: 100%;
     height: 100%;
     box-sizing: border-box;
+  }
+  .card-ghi > .ghi-body {
+    font-size: 0.95rem;
   }
 }
 @media screen and (min-width:800px) {
@@ -393,13 +389,19 @@ option {
     height: 100%;
     box-sizing: border-box;
   }
+  .card-ghi > .ghi-body {
+    font-size: 1.2rem;
+  }
 }
   @media screen and (min-width:1440px) {
 
     .modal__inner {
-      width: 40%;
+      width: 60%;
       height: 100%;
       box-sizing: border-box;
+    }
+    .card-ghi > .ghi-body {
+      font-size: 1.2rem;
     }
 }
 
@@ -424,7 +426,7 @@ option {
   /* 100vw =100% with 100vh =100% height- luôn canh giữa calc(50vw - 25px)-1/2 50px with của elemente */
   display: flex;
   /* auto cho QR giữ */
-  box-shadow: -1px -9px 7px rgb(0 0 0 / 25%);
+  box-shadow: -1px -9px 7px rgb(0 0 0 / 20%);
 }
 
 .btnQr:hover,
@@ -449,20 +451,74 @@ option {
 .ghi-cards {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
-  gap: 0.8rem;
-  margin-top: 1rem;
-  /* Xoay */
-  /* position: relative;
-  transform-style: preserve-3d;
-  transition: all 0.8s ease; */
+  gap: 0rem;
 }
 
 .card-ghi {
   border: 0.2px solid black;
   border-radius: 5px;
   background-color: white;
-  padding: 0.5rem;
-  /* Xoay */
-  /* transform-style: preserve-3d;
-  transition: all 0.8s ease; */
+  padding: 0.4rem;
+  margin: 0.5rem 0.5rem;
+}
+.card-ghi > .ghi-header {
+  margin-bottom: .25rem;
+  font-size: 1.1rem;
+  font-weight: bold;
+  display: flex;
+}
+.card-ghi > .ghi-header>.ghi-header_left {
+  width:50%;
+}
+.card-ghi > .ghi-header>.ghi-header_right {
+  width:50%;
+  text-align:right; /* canh cho the i icon khi dung flex*/
+}
+.card-ghi > .ghi-body {
+  color: #777;
+  margin-left: 0.1rem;
+  margin-bottom: 0.3rem;
+}
+.card-ghi > .ghi-footer {
+  margin-bottom: .25rem;
+  font-size: 1.1rem;
+  font-weight: bold;
+  display: flex;
+}
+.card-ghi > .ghi-footer>.ghi-footer_left {
+  width:50%;
+}
+
+.card-ghi > .ghi-footer>.ghi-footer_left > .fa-trash {
+  color: rgb(209, 22, 22);
+  margin-left: 0.8rem;
+  font-size: 19px;
+}
+.card-ghi > .ghi-footer>.ghi-footer_left > .fa-trash:active {
+  color: rgb(163, 83, 83);
+}
+.card-ghi > .ghi-footer>.ghi-footer_right {
+  width:50%;
+  text-align:right; /* canh cho the i icon khi dung flex*/
+}
+
+.card-ghi > .ghi-footer> .ghi-footer_right >.fa-print {
+  float:right; /* canh cho the i icon khi dung flex*/
+  color: rgb(2, 202, 2);
+  font-size: 19px;
+  margin-right: -0.1rem;
+}
+
+.card-ghi > .ghi-footer> .ghi-footer_right >.fa-print:active {
+  color: rgb(17, 110, 5);
+}
+.card-ghi > .ghi-footer> .ghi-footer_right >.fa-sack-dollar {
+  float:right; /* canh cho the i icon khi dung flex*/
+  color: rgb(32, 2, 202);
+  font-size: 19px;
+  margin-right: 1rem;
+}
+
+.card-ghi > .ghi-footer> .ghi-footer_right >.fa-sack-dollar:active {
+  color: rgb(50, 32, 151);
 }
