@@ -3,30 +3,28 @@
 } */
 .toolbar-top {
   display: block;
-  z-index: 9999;
+  z-index: 9;
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  height: 4.5rem;
+  height: 3.5rem;
   background: #1916ce;
   box-shadow: 0px 9px 8px rgb(0 0 0 / 20%);
 }
 .toolbar-top > .backicon > .fa-arrow-left {
   position: fixed;
-  top: 2rem;
+  top: 1rem;
   z-index: 999;
   color: rgb(255, 255, 255);
   font-size: 1.5rem;
   margin-left: 1rem;
 
 }
-.toolbar-top > .menuicon {
-  display: flex;
-}
+
 .toolbar-top > .menuicon > .fa-bars {
   position: fixed;
-  top: 2rem;
+  top: 1rem;
   right: 1rem;
   z-index: 999;
   color: rgb(252, 252, 252);
@@ -50,8 +48,125 @@
   padding-right: 20%;
   width: 70%;
 } */
-/* Search box */
+/* menu side */
+/* https://stackoverflow.com/questions/16989585/css-3-slide-in-from-left-transition */
 
+
+.menu_side {
+  /* opacity: 0; */
+  visibility: hidden;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  text-align: left;
+  background: rgba(0,0,0, .9);
+  transition: opacity .25s ease-in-out;
+  z-index: 10;
+
+}
+
+
+.menu_side__bg {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  cursor: pointer;
+}
+
+.menu_side-state {
+  display: none;
+}
+
+
+.menu_side-state:checked + .menu_side {
+  opacity: 1;
+  visibility: visible;
+}
+
+.menu_side-state:checked + .menu_side .menu_side__inner {
+  top: 0;
+}
+
+.menu_side__inner {
+  transition: top .25s ease;
+  position: absolute;
+  top: -20%;
+  right: 0;
+  bottom: 0;
+  width: 270px;
+  margin: auto;
+  overflow: auto;
+  background: #fff;
+  border-radius: 5px;
+  padding: 0.5em 0.5em;
+  height: 100%;
+
+}
+.info-app {
+  width: 100%;
+  display: flex;
+  padding-top: 10px;
+}
+.logo-app {
+  width: 25%;
+  padding-left: 10px;
+}
+.app-name {
+  width: 80%;
+  margin: auto;
+  font-weight: bold;
+  padding-left: 16px;
+  font-size: 20px;
+}
+
+.filter-container {
+  width: 100%;
+  display: flex;
+
+}
+.sort-container {
+  width: 100%;
+  display: flex;
+  padding-top: 15px;
+
+}
+.filter-label {
+  width: 32%;
+}
+.sort-label {
+  width: 40%;
+}
+.filter-select{
+  width: 96%;
+}
+.hr-bottom {
+  position: absolute;
+  bottom: 50px;
+  width: 94%;
+}
+.side-menu-bottom-container {
+  position: absolute;
+  bottom: 20px;
+  width: 100%;
+}
+.login-text {
+  margin: auto;
+  font-weight: bold;
+  font-size: 20px;
+  color: #1916ce;
+  text-align: center;
+  width: 100%;
+
+}
+/* menu side */
+/* Search box */
+.box {
+  margin-top: 23px;
+}
 .search-box {
   position: relative;
   height: 40px;
@@ -107,21 +222,19 @@
 }
 /* Search box */
 .filter-sort{
-  display: flex;
+  width: 60%;
 }
 .filter-hamlet{
   flex-direction: column;
   gap: .25rem;
   margin-bottom: 0.5rem;
-  width: 35%;
+  width: 100%;
 }
 .sort{
-  flex-direction: column;
   gap: .25rem;
   margin-bottom: 0.5rem;
-  width: 65%;
-  float:right;
-  padding-right: 0.5em;
+  width: 85%;
+
 }
 /* https://stackoverflow.com/questions/20804016/editing-input-type-search-pseudo-element-button-x */
 
@@ -138,7 +251,7 @@ option {
 }
 .list-cards {
   overflow: scroll;
-  padding-top: 3.5rem;
+  padding-top: 1.5rem;
   padding-bottom: 3rem;
 }
 
@@ -146,7 +259,7 @@ option {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
   gap: 0.8rem;
-  margin-top: 1rem;
+  margin-top: 2rem;
   /* Xoay */
   /* position: relative;
   transform-style: preserve-3d;
@@ -264,7 +377,7 @@ option {
   position: fixed;
   bottom: -2px;
   left: 0;
-  z-index: 9999;
+  z-index: 9;
   width: 100%;
   height: 3rem;
   background: #1916ce;
@@ -322,7 +435,7 @@ option {
   border-radius: 5px;
   padding: 0.5em 0.5em;
   height: 50%;
-  padding-top: 5.5rem;
+  padding-top: 3.5rem;
   padding-bottom: 5rem;
 
 }
@@ -439,7 +552,7 @@ option {
 
 }
 .fa-qrcode {
-  color: #FF676D;
+  color: #f7f7f7;
   font-size: 30px;
   margin: auto;
 
