@@ -3,25 +3,34 @@ const userCardContainer = document.querySelector("[data-user-cards-container]");
 const searchInput = document.querySelector("[data-search]");
 const filterSelected = document.querySelector("[data-filter]");
 const checkSearch = document.getElementById("check-search");
-const backicon = document.getElementById("backicon");
-const menuicon = document.getElementById("menuicon");
+
 const clickCard = document.getElementsByClassName("fa-rotate-left");
-const modalghi = document.getElementById("modalghi");
 const btnQr = document.getElementById("btnQr");
 // login
 const userinfo = JSON.parse(localStorage.getItem("userinfo"));
-// const token = userinfo.Token;
-const token =
-  "IntcInVAWQiOmZhbHNlLCJ1c2VyX3ZlcmlmaV9tZXMiOiAzZXJcIjpcIkEgSGllcFwiLCBcInB3XCI6XCIyNTEwNjRcIiwgXCJleHBpcnlfZGF0ZVwiOlwiVGh1IE9jdCAyMCAyMDIyIDE5OjI5OjE2IEdNVCswNzAwIChHaT8gPz9uZyBEPz9uZylcIn0i";
+const token = userinfo.Token;
+// const token =
+//   "IntcInVAWQiOmZhbHNlLCJ1c2VyX3ZlcmlmaV9tZXMiOiAzZXJcIjpcIkEgSGllcFwiLCBcInB3XCI6XCIyNTEwNjRcIiwgXCJleHBpcnlfZGF0ZVwiOlwiVGh1IE9jdCAyMCAyMDIyIDE5OjI5OjE2IEdNVCswNzAwIChHaT8gPz9uZyBEPz9uZylcIn0i";
 
 const user = encodeURIComponent("A Hiep");
 const pw = encodeURIComponent("251064");
 // const clickOnCard = document.querySelectorAll("card");
 // back icon
 // console.log(menuicon);
+const backicon = document.getElementById("backicon");
+const modalghi = document.getElementById("modalghi");
+const menuside = document.getElementById("menu_side");
+const menuicon = document.getElementById("menuicon");
+
 function backIcon() {
   modalghi.checked = false;
   resetmodal();
+}
+function menuSide() {
+  menuside.checked = true;
+}
+function hidemenu() {
+  menuicon.classList.toggle("hide");
 }
 function resetmodal() {
   // xóa phiếu cũ trên modal
