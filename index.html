@@ -15,23 +15,59 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
 </head>
 <body>
   <div class="container">
-<div class="toolbar-top">
-    <div class="filter-sort">
-    <div class="filter-hamlet">
-    <select class="form-control" name="hamlet" id="hamlet" data-filter>
-      <option value="all">Chọn ấp</option>
-    </select>
+    <!-- side menu -->
+<input class="menu_side-state" id="menu_side" type="checkbox" />
+<div class="menu_side">
+  <label class="menu_side__bg" for="menu_side"></label>
+  <div class="menu_side__inner">
+    <div class="info-app">
+    <img class="logo-app" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRAHXPluq6GtTRPDIHRv5kJPy86uFjp5sO7hg&usqp=CAU" alt="">
+    <label class="app-name">Phần mền TTN</label>
   </div>
+  <hr/>
 
-  <div class="sort">
+        <!-- filter ap -->
+    <div class="filter-container">
+      <label class="filter-label">⏳ Bộ lọc</label>
+      <div class="filter-sort">
+      <div class="filter-hamlet">
+      <select class="filter-select" name="hamlet" id="hamlet" data-filter>
+       <option value="all">Chọn ấp</option>
+      </select>
+    </div>
+    </div>
+  </div>
+<!-- filter ap -->
+
+<!-- Sort -->
+  <div class="sort-container">
+    <label class="sort-label">🗂️ Sắp xếp</label>
+    <div class="sort">
     <select class="sort" id="sort" onchange="ascending()" >
-      <option value="default">Sắp xếp mặc định</option>
-      <option value="owe-most">Nợ nhiều nhất</option>
-      <option value="used-most">Dùng nhiều nhất</option>
-      <option value="older">Lâu nhất chưa chốt</option>
+    <option value="default">Sắp xếp mặc định</option>
+    <option value="owe-most">Nợ nhiều nhất</option>
+    <option value="used-most">Dùng nhiều nhất</option>
+    <option value="older">Lâu nhất chưa chốt</option>
     </select>
+    </div>
+  </div>
+<!-- Sort -->
+<!-- side menu bottom -->
+<hr class="hr-bottom"/>
+<div class="side-menu-bottom-container">
+
+  <p class="login-text"> 🏠 Đăng xuất</p>
+</div>
+<!-- side menu bottom -->
+
+
   </div>
 </div>
+<!-- side menu -->
+<div class="toolbar-top">
+
+
+
 <div class="box">
 <input type="checkbox" id="check-search">
   <div class="search-box">
@@ -41,7 +77,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
   </div>
 </div>
 <div class="backicon" id="backicon"><i class="fa fa-arrow-left" onclick="backIcon()"></i></div>
-<div class="menuicon" id="menuicon"><i class="fa-solid fa-bars"></i></div>
+<div class="menuicon" id="menuicon"><i class="fa-solid fa-bars" onclick="menuSide()" ></i></div>
 <!-- <div class="menuicon"><i class='fa-solid fa-bars-filter'></i></i></div> -->
 
 </div>
@@ -120,6 +156,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
   </div>
 </div>
 <!-- modal ghi-->
+<!-- modal ghi -->
 
 <div class="toolbar-bottom" ><label class="btnQr" id="btnQr" for="modalghi"><i class="fa-solid fa-qrcode"></i></label></div>
 
