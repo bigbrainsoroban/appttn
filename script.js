@@ -205,11 +205,14 @@ function scanQR() {
     }
   };
   const config = { fps: 10, qrbox: { width: 250, height: 250 } };
+
+  // If you want to prefer back camera
+  html5QrCode.start(
+    { facingMode: "environment" },
+    config,
+    qrCodeSuccessCallback
+  );
 }
-
-// If you want to prefer back camera
-html5QrCode.start({ facingMode: "environment" }, config, qrCodeSuccessCallback);
-
 // scan QR
 
 // lick on card
