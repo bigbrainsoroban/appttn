@@ -162,28 +162,20 @@ btnQr.addEventListener("click", (e) => {
   // ).innerHTML = "CHào bạn";
 });
 // scan QR
-function onScanSuccess(decodedText, decodedResult) {
-  // Handle on success condition with the decoded text or result.
+const html5QrCode = new Html5Qrcode("reader");
+const qrCodeSuccessCallback = (decodedText, decodedResult) => {
+  /* handle success */
   console.log(`Scan result: ${decodedText}`, decodedResult);
   val = decodedResult.decodedText.slice(-6, decodedResult.decodedText.length);
   if (decodedResult.decodedText.length >= 6) {
     modalghi.checked = false;
   }
   search(val);
-  
-}
-function onScanFailure(error) {
-  // handle scan failure, usually better to ignore and keep scanning.
-  // for example:
-  console.warn(`Code scan error = ${error}`);
-}
+};
+const config = { fps: 10, qrbox: { width: 250, height: 250 } };
 
-let html5QrcodeScanner = new Html5QrcodeScanner(
-  "reader",
-  { fps: 10, qrbox: { width: 250, height: 250 } },
-  /* verbose= */ false
-);
-html5QrcodeScanner.render(onScanSuccess, onScanFailure);
+// If you want to prefer back camera
+html5QrCode.start({ facingMode: "environment" }, config, qrCodeSuccessCallback);
 
 // scan QR
 
