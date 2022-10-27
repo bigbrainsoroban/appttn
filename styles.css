@@ -31,23 +31,7 @@
   font-size: 1.5rem;
 
 }
-/* .toolbar-top > .menuicon > .fa-bars-filter {
-  position: fixed;
-  top: 2rem;
-  right: 1rem;
-  z-index: 999;
-  color: rgb(255, 255, 255);
-  font-size: 1.5rem;
 
-} */
-/* .search-wrapper {
-  display: flex;
-  flex-direction: column;
-  gap: .25rem;
-  float: right;
-  padding-right: 20%;
-  width: 70%;
-} */
 /* menu side */
 /* https://stackoverflow.com/questions/16989585/css-3-slide-in-from-left-transition */
 
@@ -97,7 +81,6 @@
   top: -20%;
   right: 0;
   bottom: 0;
-  width: 270px;
   margin: auto;
   overflow: auto;
   background: #fff;
@@ -107,7 +90,6 @@
 
 }
 .info-app {
-  width: 100%;
   display: flex;
   padding-top: 10px;
 }
@@ -124,12 +106,10 @@
 }
 
 .filter-container {
-  width: 100%;
   display: flex;
 
 }
 .sort-container {
-  width: 100%;
   display: flex;
   padding-top: 15px;
 
@@ -151,7 +131,7 @@
 .side-menu-bottom-container {
   position: absolute;
   bottom: 20px;
-  width: 100%;
+  width: 95%;
 }
 .login-text {
   margin: auto;
@@ -161,6 +141,9 @@
   text-align: center;
   width: 100%;
 
+}
+#reader {
+  width: 95% !important;
 }
 /* menu side */
 /* Search box */
@@ -238,14 +221,7 @@
 }
 /* https://stackoverflow.com/questions/20804016/editing-input-type-search-pseudo-element-button-x */
 
-/* input[type="search"] {
-  border: 1px solid rgb(65, 35, 235);
-  padding: .2em .4em;
-  border-radius: .3em;
-}
-input {
-  font-size: 1rem;
-} */
+
 option {
   font-size: 1rem;
 }
@@ -260,10 +236,6 @@ option {
   grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
   gap: 0.8rem;
   margin-top: 2rem;
-  /* Xoay */
-  /* position: relative;
-  transform-style: preserve-3d;
-  transition: all 0.8s ease; */
 }
 
 .card {
@@ -472,50 +444,48 @@ option {
   transform: rotate(-45deg);
 }
 /* https://stackoverflow.com/questions/13550541/media-min-width-max-width */
-@media screen and (min-device-width: 350px) and (max-device-width:412px) {
 
-  .card-ghi > .ghi-body {
-    font-size: 0.95rem;
-  }
-}
-@media screen and (max-width: 412px) {
-
-  .card-ghi > .ghi-body {
-    font-size: 0.95rem;
-  }
-}
-@media screen and (max-width: 768px) {
-
+/* Mobile: with < 740px, 739px 46.1875em */
+@media only screen and (max-width: 46.1875em) {
   .modal__inner {
     width: 100%;
     height: 100%;
     box-sizing: border-box;
   }
   .card-ghi > .ghi-body {
-    font-size: 0.95rem;
+    font-size: 0.96rem;
+  }
+  .menu_side__inner {
+    width: 16em;
   }
 }
-@media screen and (min-width:800px) {
-
+/* Tablet: width >= 740px 46.25em  and with < 1024px, 1023px 63.9375em */
+@media only screen and (min-width:46.25em) and (max-width: 63.9375em) {
   .modal__inner {
-    width: 80%;
+    width: 100%;
     height: 100%;
     box-sizing: border-box;
   }
   .card-ghi > .ghi-body {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
+  }
+  .menu_side__inner {
+    width: 30em;
   }
 }
-  @media screen and (min-width:1440px) {
-
-    .modal__inner {
-      width: 60%;
-      height: 100%;
-      box-sizing: border-box;
-    }
-    .card-ghi > .ghi-body {
-      font-size: 1.2rem;
-    }
+/* PC: width >= 1024px 64em */
+@media only screen and (min-width: 64em) {
+  .modal__inner {
+    width: 60%;
+    height: 100%;
+    box-sizing: border-box;
+  }
+  .card-ghi > .ghi-body {
+    font-size: 1rem;
+  }
+  .menu_side__inner {
+    width: 35em;
+  }
 }
 
 /* Other
@@ -561,7 +531,16 @@ option {
 /* https://codepen.io/Idered/pen/DdeoeW */
 /* https://codepen.io/lexctk/pen/paQaBv */
 /* https://www.youtube.com/watch?v=W9XEARppU8s */
-.ghi-cards {
+.ghi-info {
+  text-align: center;
+  font-size: 1.05em;
+  margin-top: 0.5em;
+  font-weight: bold;
+  border: 0.2px solid black;
+  border-radius: 5px;
+
+}
+.ghi-cards-container {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
   gap: 0rem;
