@@ -170,6 +170,7 @@ function onScanSuccess(decodedText, decodedResult) {
     modalghi.checked = false;
   }
   search(val);
+  
 }
 function onScanFailure(error) {
   // handle scan failure, usually better to ignore and keep scanning.
