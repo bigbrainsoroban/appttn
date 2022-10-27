@@ -166,8 +166,10 @@ function onScanSuccess(decodedText, decodedResult) {
   // Handle on success condition with the decoded text or result.
   console.log(`Scan result: ${decodedText}`, decodedResult);
   val = decodedResult.decodedText.slice(-6, decodedResult.decodedText.length);
+  if (decodedResult.decodedText.length >= 6) {
+    modalghi.checked = false;
+  }
   search(val);
-  modalghi.checked = false;
 }
 function onScanFailure(error) {
   // handle scan failure, usually better to ignore and keep scanning.
