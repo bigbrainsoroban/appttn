@@ -146,12 +146,41 @@
   width: 95% !important;
   margin-top: 30vh !important;
 } */
-.switch {
+.parent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.parent button {
+  background-color: #48abe0;
+  color: white;
+  border: none;
+  padding: 5px;
+  font-size: 31px;
+  height: 50px;
+  width: 50px;
+  box-shadow: 0 2px 4px darkslategray;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.parent button:active {
+  background-color: #48abe0;
+  box-shadow: 0 0 2px darkslategray;
+  transform: translateY(2px);
+}
+
+.parent button:not(:first-child) {
   margin-top: 10px;
-  margin-bottom: 10px;
+}
+.switch {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  border-radius: 100%;
 }
 /* menu side */
 /* Search box */
+
 .box {
   margin-top: 23px;
 }
