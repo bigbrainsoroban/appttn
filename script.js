@@ -695,6 +695,8 @@ function printpage() {
   modalghi.checked = false;
   // set backicon hide
   backicon.classList.toggle("hide");
+    // reader tắt
+  reader.classList.toggle("hide");
 }
 // tạo windown mới chỉ chứa nội dung in có head body
 function PrintContent() {
