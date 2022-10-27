@@ -3,7 +3,7 @@ const userCardContainer = document.querySelector("[data-user-cards-container]");
 const searchInput = document.querySelector("[data-search]");
 const filterSelected = document.querySelector("[data-filter]");
 const checkSearch = document.getElementById("check-search");
-
+const ghi_info = document.querySelector("[ghi-info]");
 const clickCard = document.getElementsByClassName("fa-rotate-left");
 const btnQr = document.getElementById("btnQr");
 // login
@@ -24,7 +24,9 @@ const menuicon = document.getElementById("menuicon");
 
 function backIcon() {
   modalghi.checked = false;
+  ghi_info.classList.toggle("hide", false);
   resetmodal();
+  search("all");
 }
 function menuSide() {
   menuside.checked = true;
@@ -39,6 +41,10 @@ function resetmodal() {
   document.querySelector("[ghi-cards-container]").textContent = "";
   // tắt backicon
   backicon.classList.toggle("hide");
+  // ghi-info tắt
+  // ghi_info.classList.toggle("hide");
+  // ẩn info
+  // ghi_info.classList.toggle("hide");
   // trả lại biến chặn hàm render ghi
   return (cancel = false);
 }
@@ -107,12 +113,51 @@ searchInput.addEventListener("input", (e) => {
     user.element.classList.toggle("hide", !isVisible);
   });
 });
+// hàm search
+function search(val) {
+  //filer
+  var valueFilter = filterSelected.value;
+  const value = val.toLowerCase();
+  //lọc ra trước
+  userFilter = filteruser(valueFilter);
+  if (val !== "all") {
+    userFilter.forEach((user) => {
+      const isVisible =
+        user.name.toLowerCase().includes(value) ||
+        user.id.toLowerCase().includes(value);
+      user.element.classList.toggle("hide", !isVisible);
+    });
+  } else {
+    userFilter.forEach((user) => {
+      user.element.classList.toggle("hide", false);
+    });
+  }
+}
 // nút quét QR https://github.com/mebjas/html5-qrcode
 btnQr.addEventListener("click", (e) => {
+  // ẩn info
+  ghi_info.classList.toggle("hide");
+  cancel = true;
   document.querySelector(
     "[ghi-cards-container]"
   ).innerHTML = `<div style="width: 500px" id="reader"></div>`;
+  // ).innerHTML = "CHào bạn";
 });
+// scan QR
+function onScanSuccess(decodedText, decodedResult) {
+  // Handle on success condition with the decoded text or result.
+  console.log(`Scan result: ${decodedText}`, decodedResult);
+  val = decodedResult.decodedText.slice(-6, decodedResult.decodedText.length);
+  search(val);
+}
+
+var html5QrcodeScanner = new Html5QrcodeScanner("reader", {
+  fps: 10,
+  qrbox: 250,
+});
+html5QrcodeScanner.render(onScanSuccess);
+// scan QR
+
 // lick on card
 // https://stackoverflow.com/questions/44185632/get-index-of-class-element-with-inline-onclick-pure-js-no-jquery
 function getGhiOne() {
@@ -123,10 +168,14 @@ function getGhiOne() {
   var index = els.indexOf(event.currentTarget);
   // console.log(index);
   var IDKH = users[index].id;
+  var Name = users[index].name;
+  var Ap = users[index].ap;
   // return IDKH;
   // console.log(IDKH);
   // ghi lại idkh len model để dùng cho các button bên ngoài
   document.querySelector("[whatid]").textContent = IDKH;
+  // ghi_info hiện
+  ghi_info.textContent = `🍀${IDKH} - 🧒🏽${Name} - 🏡${Ap}`;
   // hiện modal ghi - phải check điều kiện chạy hàm cancel để hàm khác ghi lên model-cho chạy chậm hơn 5ms
   setTimeout(() => {
     getGhiID(IDKH);
@@ -134,6 +183,7 @@ function getGhiOne() {
   // mở backicon lên
   backicon.classList.toggle("hide", false);
   modalghi.checked = true;
+  // ghi_info.classList.toggle("hide", false);
 }
 function getGhiID(IDKH) {
   //https://stackoverflow.com/questions/35817565/how-to-filter-array-when-object-key-value-is-in-array  - da xu ly blank ben api ko la se lay luon blank
@@ -208,6 +258,7 @@ function renderghiId(result) {
   ghi_body.textContent += checknote();
 
   ghi_cards_container.append(cardG);
+
   return {
     IDCS: result.IDCS,
     owe: result.Owe,
@@ -470,6 +521,7 @@ function uniqueArray4(a) {
 function printBill(IDCS) {
   resetmodal();
   cancel = true;
+  // ghi_info.setAttribute("style", "display: none;");
   setTimeout(() => {
     // vì IDKH ghi từ div Card vào class whatid cần thời gian
     var IDKH = document.querySelector("[whatid]").textContent;
@@ -585,6 +637,9 @@ function printBill(IDCS) {
   }, 50);
   // mở backicon lên
   backicon.classList.toggle("hide", false);
+  // tắt info
+  ghi_info.classList.toggle("hide");
+
   return cancel; //div stop render ghiCS
 }
 function printpage() {
