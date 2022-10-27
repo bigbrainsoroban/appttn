@@ -162,15 +162,46 @@ btnQr.addEventListener("click", (e) => {
   // ).innerHTML = "CHào bạn";
 });
 // scan QR
+// có của sổ, chọn ảnh - ko tự tắt camera khi quét xong
+// function onScanSuccess(decodedText, decodedResult) {
+//   // Handle on success condition with the decoded text or result.
+//   console.log(`Scan result: ${decodedText}`, decodedResult);
+//   val = decodedResult.decodedText.slice(-6, decodedResult.decodedText.length);
+//   if (decodedResult.decodedText.length >= 6) {
+//     modalghi.checked = false;
+//   }
+//   search(val);
+// }
+// function onScanFailure(error) {
+//   // handle scan failure, usually better to ignore and keep scanning.
+//   // for example:
+//   console.warn(`Code scan error = ${error}`);
+// }
+
+// let html5QrcodeScanner = new Html5QrcodeScanner(
+//   "reader",
+//   { fps: 10, qrbox: { width: 250, height: 250 } },
+//   /* verbose= */ false
+// );
+// html5QrcodeScanner.render(onScanSuccess, onScanFailure);
+// mở camera sau- tự tắt camera
 const html5QrCode = new Html5Qrcode("reader");
 const qrCodeSuccessCallback = (decodedText, decodedResult) => {
   /* handle success */
   console.log(`Scan result: ${decodedText}`, decodedResult);
   val = decodedResult.decodedText.slice(-6, decodedResult.decodedText.length);
   if (decodedResult.decodedText.length >= 4) {
-    modalghi.checked = false;
+    html5QrCode
+      .stop()
+      .then((ignore) => {
+        // QR Code scanning is stopped.
+        modalghi.checked = false;
+        search(val);
+      })
+      .catch((err) => {
+        // Stop failed, handle it.
+      });
   }
-  search(val);
 };
 const config = { fps: 10, qrbox: { width: 250, height: 250 } };
 
