@@ -6,14 +6,29 @@ const checkSearch = document.getElementById("check-search");
 const ghi_info = document.querySelector("[ghi-info]");
 const clickCard = document.getElementsByClassName("fa-rotate-left");
 const btnQr = document.getElementById("btnQr");
-// login
-const userinfo = JSON.parse(localStorage.getItem("userinfo"));
-const token = userinfo.Token;
+
 // const token =
 //   "IntcInVAWQiOmZhbHNlLCJ1c2VyX3ZlcmlmaV9tZXMiOiAzZXJcIjpcIkEgSGllcFwiLCBcInB3XCI6XCIyNTEwNjRcIiwgXCJleHBpcnlfZGF0ZVwiOlwiVGh1IE9jdCAyMCAyMDIyIDE5OjI5OjE2IEdNVCswNzAwIChHaT8gPz9uZyBEPz9uZylcIn0i";
-
+// login first
 const user = encodeURIComponent("A Hiep");
 const pw = encodeURIComponent("251064");
+const apiLogin =
+  "https://script.google.com/macros/s/AKfycbycmTkUbfwdQVUAQwIvO7gFg1p-cZSs_0F2I3bEIJRyuTd13ZnYridmjpgisRs7kMld/exec?action=login&user=" +
+  user +
+  "&pw=" +
+  pw;
+// login lay token user luu vao localStorage
+fetch(apiLogin)
+  .then((res) => res.json()) //ra json Js bằng với Json Paste - Axios thì ko cần
+  .then((data) => {
+    //luu localStorage
+    localStorage.setItem("userinfo", JSON.stringify(data));
+  })
+  .catch((error) => {
+    console.log(error);
+  });
+const userinfo = JSON.parse(localStorage.getItem("userinfo"));
+const token = userinfo.Token;
 // const clickOnCard = document.querySelectorAll("card");
 // back icon
 // console.log(menuicon);
@@ -267,12 +282,7 @@ function renderghiId(result) {
   }; //chứa giá trị tìm kiếm trong CardContainer
 }
 // APIs
-//get login
-const apiLogin =
-  "https://script.google.com/macros/s/AKfycbycmTkUbfwdQVUAQwIvO7gFg1p-cZSs_0F2I3bEIJRyuTd13ZnYridmjpgisRs7kMld/exec?action=login&user=" +
-  user +
-  "&pw=" +
-  pw;
+
 // get data All sheet query
 const apiGetAllData =
   "https://script.google.com/macros/s/AKfycbwYk087R2oQDH2VB20gNS6GLANflXYtdk1ufxfh-UNuOZ2il3ypUC8yZRXFMFCe8BIr2Q/exec?action=getdataAll&token=" +
@@ -296,16 +306,6 @@ const apigetdataID =
   "https://script.google.com/macros/s/AKfycbycmTkUbfwdQVUAQwIvO7gFg1p-cZSs_0F2I3bEIJRyuTd13ZnYridmjpgisRs7kMld/exec?action=getdataID&token=" +
   token +
   "id=";
-// login lay token user luu vao localStorage
-fetch(apiLogin)
-  .then((res) => res.json()) //ra json Js bằng với Json Paste - Axios thì ko cần
-  .then((data) => {
-    //luu localStorage
-    localStorage.setItem("userinfo", JSON.stringify(data));
-  })
-  .catch((error) => {
-    console.log(error);
-  });
 
 // lấy dữ liệu về - xử lý bất đồng bộ
 fetch(apiGetAllData)
