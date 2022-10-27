@@ -167,7 +167,7 @@ const qrCodeSuccessCallback = (decodedText, decodedResult) => {
   /* handle success */
   console.log(`Scan result: ${decodedText}`, decodedResult);
   val = decodedResult.decodedText.slice(-6, decodedResult.decodedText.length);
-  if (decodedResult.decodedText.length >= 6) {
+  if (decodedResult.decodedText.length >= 4) {
     modalghi.checked = false;
   }
   search(val);
