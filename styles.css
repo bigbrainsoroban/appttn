@@ -146,6 +146,10 @@
   width: 95% !important;
   margin-top: 30vh !important;
 } */
+.switch {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
 /* menu side */
 /* Search box */
 .box {
