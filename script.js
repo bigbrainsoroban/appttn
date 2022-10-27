@@ -6,6 +6,7 @@ const checkSearch = document.getElementById("check-search");
 const ghi_info = document.querySelector("[ghi-info]");
 const clickCard = document.getElementsByClassName("fa-rotate-left");
 const btnQr = document.getElementById("btnQr");
+const reader = document.getElementById("reader");
 
 // const token =
 //   "IntcInVAWQiOmZhbHNlLCJ1c2VyX3ZlcmlmaV9tZXMiOiAzZXJcIjpcIkEgSGllcFwiLCBcInB3XCI6XCIyNTEwNjRcIiwgXCJleHBpcnlfZGF0ZVwiOlwiVGh1IE9jdCAyMCAyMDIyIDE5OjI5OjE2IEdNVCswNzAwIChHaT8gPz9uZyBEPz9uZylcIn0i";
@@ -40,6 +41,8 @@ const menuicon = document.getElementById("menuicon");
 function backIcon() {
   modalghi.checked = false;
   ghi_info.classList.toggle("hide", false);
+  // reader mở
+  reader.classList.toggle("hide", false);
   resetmodal();
   search("all");
 }
@@ -56,8 +59,6 @@ function resetmodal() {
   document.querySelector("[ghi-cards-container]").textContent = "";
   // tắt backicon
   backicon.classList.toggle("hide");
-  // ghi-info tắt
-  // ghi_info.classList.toggle("hide");
   // ẩn info
   // ghi_info.classList.toggle("hide");
   // trả lại biến chặn hàm render ghi
@@ -153,6 +154,8 @@ btnQr.addEventListener("click", (e) => {
   // ẩn info
   ghi_info.classList.toggle("hide");
   cancel = true;
+  // reader mở
+  reader.classList.toggle("hide", false);
   document.querySelector(
     "[ghi-cards-container]"
   ).innerHTML = `<div style="width: 500px" id="reader"></div>`;
@@ -164,13 +167,21 @@ function onScanSuccess(decodedText, decodedResult) {
   console.log(`Scan result: ${decodedText}`, decodedResult);
   val = decodedResult.decodedText.slice(-6, decodedResult.decodedText.length);
   search(val);
+  modalghi.checked = false;
+}
+function onScanFailure(error) {
+  // handle scan failure, usually better to ignore and keep scanning.
+  // for example:
+  console.warn(`Code scan error = ${error}`);
 }
 
-var html5QrcodeScanner = new Html5QrcodeScanner("reader", {
-  fps: 10,
-  qrbox: 250,
-});
-html5QrcodeScanner.render(onScanSuccess);
+let html5QrcodeScanner = new Html5QrcodeScanner(
+  "reader",
+  { fps: 10, qrbox: { width: 250, height: 250 } },
+  /* verbose= */ false
+);
+html5QrcodeScanner.render(onScanSuccess, onScanFailure);
+
 // scan QR
 
 // lick on card
@@ -199,6 +210,8 @@ function getGhiOne() {
   backicon.classList.toggle("hide", false);
   modalghi.checked = true;
   // ghi_info.classList.toggle("hide", false);
+  // reader tắt
+  reader.classList.toggle("hide");
 }
 function getGhiID(IDKH) {
   //https://stackoverflow.com/questions/35817565/how-to-filter-array-when-object-key-value-is-in-array  - da xu ly blank ben api ko la se lay luon blank
@@ -639,7 +652,10 @@ function printBill(IDCS) {
   backicon.classList.toggle("hide", false);
   // tắt info
   ghi_info.classList.toggle("hide");
-
+  // reader tắt
+  reader.classList.toggle("hide");
+  // trùng lệnh chạy 2 lần
+  reader.classList.toggle("hide");
   return cancel; //div stop render ghiCS
 }
 function printpage() {
