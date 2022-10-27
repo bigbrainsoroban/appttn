@@ -149,6 +149,54 @@ function search(val) {
     });
   }
 }
+// light
+//Test browser support
+const SUPPORTS_MEDIA_DEVICES = "mediaDevices" in navigator;
+
+if (SUPPORTS_MEDIA_DEVICES) {
+  //Get the environment camera (usually the second one)
+  navigator.mediaDevices.enumerateDevices().then((devices) => {
+    const cameras = devices.filter((device) => device.kind === "videoinput");
+
+    if (cameras.length === 0) {
+      throw "No camera found on this device.";
+    }
+    const camera = cameras[cameras.length - 1];
+
+    // Create stream and get video track
+    navigator.mediaDevices
+      .getUserMedia({
+        video: {
+          deviceId: camera.deviceId,
+          facingMode: ["user", "environment"],
+          height: { ideal: 1080 },
+          width: { ideal: 1920 },
+        },
+      })
+      .then((stream) => {
+        const track = stream.getVideoTracks()[0];
+
+        //Create image capture object and get camera capabilities
+        const imageCapture = new ImageCapture(track);
+        const photoCapabilities = imageCapture
+          .getPhotoCapabilities()
+          .then(() => {
+            //todo: check if camera has a torch
+
+            //let there be light!
+            const btn = document.querySelector(".switch");
+            btn.addEventListener("click", function () {
+              track.applyConstraints({
+                advanced: [{ torch: true }],
+              });
+            });
+          });
+      });
+  });
+
+  //The light will be on as long the track exists
+}
+
 // nút quét QR https://github.com/mebjas/html5-qrcode
 btnQr.addEventListener("click", (e) => {
   // ẩn info
@@ -158,7 +206,7 @@ btnQr.addEventListener("click", (e) => {
   reader.classList.toggle("hide", false);
   document.querySelector(
     "[ghi-cards-container]"
-  ).innerHTML = `<div style="width: 500px" id="reader"></div>`;
+  ).innerHTML = `<button class="switch">Click to turn ON Flash Light</button>`;
   // ).innerHTML = "CHào bạn";
 });
 // scan QR
@@ -695,7 +743,7 @@ function printpage() {
   modalghi.checked = false;
   // set backicon hide
   backicon.classList.toggle("hide");
-    // reader tắt
+  // reader tắt
   reader.classList.toggle("hide");
 }
 // tạo windown mới chỉ chứa nội dung in có head body
