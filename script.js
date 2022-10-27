@@ -206,7 +206,7 @@ btnQr.addEventListener("click", (e) => {
   reader.classList.toggle("hide", false);
   document.querySelector(
     "[ghi-cards-container]"
-  ).innerHTML = `<button class="switch">Click to turn ON Flash Light</button>`;
+  ).innerHTML = `<div class="parent"><button class="switch">💡</button></div>`;
   // ).innerHTML = "CHào bạn";
 });
 // scan QR
