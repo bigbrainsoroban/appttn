@@ -204,9 +204,9 @@ btnQr.addEventListener("click", (e) => {
   cancel = true;
   // reader mở
   reader.classList.toggle("hide", false);
-  document.querySelector(
-    "[ghi-cards-container]"
-  ).innerHTML = `<div class="parent"><button class="switch">💡</button></div>`;
+//   document.querySelector(
+//     "[ghi-cards-container]"
+//   ).innerHTML = `<div class="parent"><button class="switch">💡</button></div>`;
   // ).innerHTML = "CHào bạn";
 });
 // scan QR
