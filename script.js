@@ -185,25 +185,27 @@ btnQr.addEventListener("click", (e) => {
 // );
 // html5QrcodeScanner.render(onScanSuccess, onScanFailure);
 // mở camera sau- tự tắt camera
-const html5QrCode = new Html5Qrcode("reader");
-const qrCodeSuccessCallback = (decodedText, decodedResult) => {
-  /* handle success */
-  console.log(`Scan result: ${decodedText}`, decodedResult);
-  val = decodedResult.decodedText.slice(-6, decodedResult.decodedText.length);
-  if (decodedResult.decodedText.length >= 4) {
-    html5QrCode
-      .stop()
-      .then((ignore) => {
-        // QR Code scanning is stopped.
-        modalghi.checked = false;
-        search(val);
-      })
-      .catch((err) => {
-        // Stop failed, handle it.
-      });
-  }
-};
-const config = { fps: 10, qrbox: { width: 250, height: 250 } };
+function scanQR() {
+  const html5QrCode = new Html5Qrcode("reader");
+  const qrCodeSuccessCallback = (decodedText, decodedResult) => {
+    /* handle success */
+    console.log(`Scan result: ${decodedText}`, decodedResult);
+    val = decodedResult.decodedText.slice(-6, decodedResult.decodedText.length);
+    if (decodedResult.decodedText.length >= 4) {
+      html5QrCode
+        .stop()
+        .then((ignore) => {
+          // QR Code scanning is stopped.
+          modalghi.checked = false;
+          search(val);
+        })
+        .catch((err) => {
+          // Stop failed, handle it.
+        });
+    }
+  };
+  const config = { fps: 10, qrbox: { width: 250, height: 250 } };
+}
 
 // If you want to prefer back camera
 html5QrCode.start({ facingMode: "environment" }, config, qrCodeSuccessCallback);
