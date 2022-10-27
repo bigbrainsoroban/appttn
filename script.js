@@ -167,15 +167,7 @@ function onScanSuccess(decodedText, decodedResult) {
   console.log(`Scan result: ${decodedText}`, decodedResult);
   val = decodedResult.decodedText.slice(-6, decodedResult.decodedText.length);
   if (decodedResult.decodedText.length >= 6) {
-    html5QrCode
-      .stop()
-      .then((ignore) => {
-        // QR Code scanning is stopped.
-        modalghi.checked = false;
-      })
-      .catch((err) => {
-        // Stop failed, handle it.
-      });
+    modalghi.checked = false;
   }
   search(val);
 }
