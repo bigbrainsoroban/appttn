@@ -101,12 +101,15 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
       <div class="body" data-body></div>
       <div class="footer">
         <div class="footer-left">
-          <i class="fa-solid fa-pen-to-square"></i>
+          <i class="fa-solid fa-pen-to-square" for="modalghi" onClick="formGhi_new()"></i>
           <i class="fa fa-print"></i>
+          <i class="fa-solid fa-pen" for="modalghi" onClick="formData_edit()"></i>
         </div>
         <div class="footer-right">
+
           <i class="fa fa-print"  onClick="printBill(this)"></i>
           <i class="fa-solid fa-cash-register" onClick="alert(this.innerHTML);"></i>
+          <i class="fa fa-trash" onClick="alert('Bạn muốn xóa');"></i>
           <!-- <i class="fa-solid fa-rotate-left" ></i> -->
         </div>
       </div>
@@ -126,8 +129,8 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
     <label class="modal__close" for="modalghi"></label>
     <!-- Scan -->
 <div style="width: 350px" class="reader" id="reader"></div>
-    <!-- light -->
-<div class="parent"><button class="switch">💡</button></div>
+<!-- light -->
+<!-- <div class="parent"><button class="switch">💡</button></div> -->
     <!-- whatid sẽ để lại xác định index id cho các buttom ngoài card -->
     <div id="whatid" style="display: none;" whatid></div>
     <div class="ghi-info" ghi-info></div>
@@ -154,6 +157,9 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
     <div id="phieu" phieu>
       <!-- nội dung phiếu -->
     </div>
+    <!--form data  -->
+    <div id="formData" formData></div>
+    <!--form data  -->
 
 
   </div>
@@ -161,7 +167,16 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
 <!-- modal ghi-->
 <!-- modal ghi -->
 
-<div class="toolbar-bottom" ><label class="btnQr" id="btnQr" for="modalghi" onClick="scanQR()"><i class="fa-solid fa-qrcode"></i></label></div>
+<div class="toolbar-bottom" ><label class="btnQr" id="btnQr" for="modalghi" onClick="scanQR()"><i class="fa-solid fa-qrcode"></i></label>
+  <div class="addIcon" id="addIcon" >
+      <div class="addIcon-box">
+        <label for="modalghi"  onClick="formData_addNew()" class="icon">
+          <i class="fa fa-plus" onClick="clearnSearch()"></i>
+        </label>
+      </div>
+  </div>
+
+</div>
 
 </div>
 </body>
