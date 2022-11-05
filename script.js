@@ -37,7 +37,7 @@ const backicon = document.getElementById("backicon");
 const modalghi = document.getElementById("modalghi");
 const menuside = document.getElementById("menu_side");
 const menuicon = document.getElementById("menuicon");
-
+const addIcon = document.getElementById("addIcon");
 function backIcon() {
   modalghi.checked = false;
   ghi_info.classList.toggle("hide", false);
@@ -57,8 +57,12 @@ function resetmodal() {
   document.querySelector("[phieu]").textContent = "";
   // xóa ghi cũ tren modal
   document.querySelector("[ghi-cards-container]").textContent = "";
+  // tắt form data
+  document.querySelector("[formData]").textContent = "";
   // tắt backicon
   backicon.classList.toggle("hide");
+  // mở lại addIcon
+  addIcon.classList.toggle("hide", false);
   // ẩn info
   // ghi_info.classList.toggle("hide");
   // trả lại biến chặn hàm render ghi
@@ -97,7 +101,8 @@ modalghi.addEventListener("change", function () {
   } else {
     //modal mở thì mở icon back
     backicon.classList.toggle("hide", false);
-
+    // tắt addIcon
+    addIcon.classList.toggle("hide");
     // chặn  ghict dữ liệu
     return (cancel = false);
   }
@@ -151,62 +156,63 @@ function search(val) {
 }
 // light
 //Test browser support
-const SUPPORTS_MEDIA_DEVICES = "mediaDevices" in navigator;
+// const SUPPORTS_MEDIA_DEVICES = "mediaDevices" in navigator;
 
-if (SUPPORTS_MEDIA_DEVICES) {
-  //Get the environment camera (usually the second one)
-  navigator.mediaDevices.enumerateDevices().then((devices) => {
-    const cameras = devices.filter((device) => device.kind === "videoinput");
+// if (SUPPORTS_MEDIA_DEVICES) {
+//   //Get the environment camera (usually the second one)
+//   navigator.mediaDevices.enumerateDevices().then((devices) => {
+//     const cameras = devices.filter((device) => device.kind === "videoinput");
 
-    if (cameras.length === 0) {
-      throw "No camera found on this device.";
-    }
-    const camera = cameras[cameras.length - 1];
+//     if (cameras.length === 0) {
+//       throw "No camera found on this device.";
+//     }
+//     const camera = cameras[cameras.length - 1];
 
-    // Create stream and get video track
-    navigator.mediaDevices
-      .getUserMedia({
-        video: {
-          deviceId: camera.deviceId,
-          facingMode: ["user", "environment"],
-          height: { ideal: 1080 },
-          width: { ideal: 1920 },
-        },
-      })
-      .then((stream) => {
-        const track = stream.getVideoTracks()[0];
+//     // Create stream and get video track
+//     navigator.mediaDevices
+//       .getUserMedia({
+//         video: {
+//           deviceId: camera.deviceId,
+//           facingMode: ["user", "environment"],
+//           height: { ideal: 1080 },
+//           width: { ideal: 1920 },
+//         },
+//       })
+//       .then((stream) => {
+//         const track = stream.getVideoTracks()[0];
 
-        //Create image capture object and get camera capabilities
-        const imageCapture = new ImageCapture(track);
-        const photoCapabilities = imageCapture
-          .getPhotoCapabilities()
-          .then(() => {
-            //todo: check if camera has a torch
+//         //Create image capture object and get camera capabilities
+//         const imageCapture = new ImageCapture(track);
+//         const photoCapabilities = imageCapture
+//           .getPhotoCapabilities()
+//           .then(() => {
+//             //todo: check if camera has a torch
 
-            //let there be light!
-            const btn = document.querySelector(".switch");
-            btn.addEventListener("click", function () {
-              track.applyConstraints({
-                advanced: [{ torch: true }],
-              });
-            });
-          });
-      });
-  });
+//             //let there be light!
+//             const btn = document.querySelector(".switch");
+//             btn.addEventListener("click", function () {
+//               track.applyConstraints({
+//                 advanced: [{ torch: true }],
+//               });
+//             });
+//           });
+//       });
+//   });
 
-  //The light will be on as long the track exists
-}
+//   //The light will be on as long the track exists
+// }
 
 // nút quét QR https://github.com/mebjas/html5-qrcode
+// https://github.com/nimiq/qr-scanner
 btnQr.addEventListener("click", (e) => {
   // ẩn info
   ghi_info.classList.toggle("hide");
   cancel = true;
   // reader mở
   reader.classList.toggle("hide", false);
-//   document.querySelector(
-//     "[ghi-cards-container]"
-//   ).innerHTML = `<div class="parent"><button class="switch">💡</button></div>`;
+  // document.querySelector(
+  //   "[ghi-cards-container]"
+  // ).innerHTML = `<div class="parent"><button class="switch">💡</button></div>`;
   // ).innerHTML = "CHào bạn";
 });
 // scan QR
@@ -288,6 +294,8 @@ function getGhiOne() {
   // mở backicon lên
   backicon.classList.toggle("hide", false);
   modalghi.checked = true;
+  // tắt addIcon
+  addIcon.classList.toggle("hide");
   // ghi_info.classList.toggle("hide", false);
   // reader tắt
   reader.classList.toggle("hide");
@@ -512,6 +520,9 @@ function renderDataAll(user) {
     name: user.Name,
     id: user.IDKH,
     ap: user.Hamlet,
+    phone: user.Phone,
+    pack: user.Pack,
+    add: user.Add,
     owe: user.Owe,
     total: user.Toltal * 1,
     month: user.RecentMon,
@@ -612,6 +623,9 @@ function uniqueArray4(a) {
 // https://stackoverflow.com/questions/10493215/page-print-in-javascript
 function printBill(IDCS) {
   resetmodal();
+  // tắt addIcon
+  addIcon.classList.toggle("hide");
+  addIcon.classList.toggle("hide");
   cancel = true;
   // ghi_info.setAttribute("style", "display: none;");
   setTimeout(() => {
@@ -630,7 +644,28 @@ function printBill(IDCS) {
       return b.RN - a.RN; //firstnew
     });
     console.log(results);
+    // chi tiet no https://stackoverflow.com/questions/53967165/how-to-render-array-of-object-in-html-element-using-javascript-using-map-functio
 
+    oweDetail = results.filter((i) => i.Owe < 0 && i.T4 !== "Đã TT");
+    console.log(oweDetail);
+    if (oweDetail.length > 0) {
+      OweDetail =
+        "<p>Tháng cũ còn nợ</p>" +
+        oweDetail
+          .map(
+            (i) =>
+              `<p>${new Date(i.DW)
+                .toLocaleDateString("en-GB")
+                .substring(3)} : ${i.Owe.toLocaleString("en")}</p>`
+          )
+          .join("") +
+        "<hr />"; //.join sẽ làm mất dấu , trong array [] ,map sẽ ra array [a,b,c]
+      console.log(OweDetail);
+    } else {
+      OweDetail = "";
+    }
+
+    // chi tiet no
     // Chỗ này ko trả là [0] liền vì lệnh print dùng chung cho các tháng khác
     var IDCS = results[0].IDCS; //last month
     // var IDCS = "7ee05d56";
@@ -703,14 +738,11 @@ function printBill(IDCS) {
       <p>Tổng tiền : <b>${Money}</b> (VNĐ)</p>
       <hr />
       <!-- Phần chi tiết nợ -->
-      <div id="No">
-      <div style="width: 100%; display: table; margin-bottom: -10px;">
-       <div id="ThNo"style="width: 28%; height: 100%; display: table-cell; " ></div>
-       <div id="TienNo"style="width: 72%; height: 100%; display: table-cell;" ></div>
-      </div>
+      <div style=" margin-top: -3px; margin-bottom: -10px;">
+       <div >${OweDetail}</div>
       </div>
       <!-- Phần chi tiết nợ -->
-      <p style="margin-bottom: 7px;">Tổng tiền thu bao gồm dư nợ :</p>
+      <p style="margin-top: 17px; margin-bottom: 7px;">Tổng tiền thu bao gồm dư nợ :</p>
               <p class="rcorner" align="center" style="font-size: 14px; margin-bottom: 3px;" ><b>${owe}</b><i> ${vnd}</i></p>
               <p style="margin: auto;"><i style="line-height: 1.2;">${sotien}</i></p>
       <hr />
@@ -768,6 +800,448 @@ function PrintContent() {
   //   WindowObject.print();
   //   WindowObject.close();
   // }, 1000);
+}
+function formData_addNew() {
+  // ẩn ghi info
+  ghi_info.classList.toggle("hide");
+  cancel = true;
+  // tắt addIcon
+  addIcon.classList.toggle("hide"); // tắt addIcon
+  addIcon.classList.toggle("hide");
+  console.log("formData");
+  // setTimeout(() => {
+  let element = `<div class="container_form">
+  <form action="/action_page.php">
+    <div class="row_form">
+      <div class="col-35">
+        <label for="idkh">IDKH</label>
+      </div>
+      <div class="col-65">
+        <input type="text" id="idkh" name="idkh" placeholder="IDKH">
+      </div>
+    </div>
+    <div class="row_form">
+      <div class="col-35">
+        <label for="name">Tên</label>
+      </div>
+      <div class="col-65">
+        <input type="text" id="name" name="name" placeholder="Tên khách hàng..">
+      </div>
+    </div>
+    <div class="row_form">
+    <div class="col-35">
+      <label for="ap">Ấp</label>
+    </div>
+    <div class="col-65">
+      <select id="hamlet" name="hamlet">
+        <option value="Hữu Hòa">Hữu Hòa</option>
+        <option value="Hữu Bình">Hữu Bình</option>
+        <option value="Hữu Thuận">Hữu Thuận</option>
+        <option value="Hữu Lợi">Hữu Lợi</option>
+        <option value="Cây Bàng">Cây Bàng</option>
+      </select>
+    </div>
+  </div>
+  <div class="row_form">
+  <div class="col-35">
+    <label for="pack">Gói nước</label>
+  </div>
+  <div class="col-65">
+    <select id="pack" name="pack">
+      <option value="SH">SH</option>
+      <option value="SX">SX</option>
+      <option value="KD">KD</option>
+      <option value="HCSN">HCSN</option>
+    </select>
+  </div>
+</div>
+    <div class="row_form">
+    <div class="col-35">
+      <label for="address">Địa chỉ</label>
+    </div>
+    <div class="col-65">
+      <input type="text" id="address" name="address" placeholder="Địa chỉ..">
+    </div>
+  </div>
+  <div class="row_form">
+  <div class="col-35">
+    <label for="phone">Số điện thoại</label>
+  </div>
+  <div class="col-65">
+    <input type="text" id="phone" name="phone" pattern="(09|03|07|08|05)+([0-9]{8})" placeholder="Số điện thoại..">
+  </div>
+</div>
+
+    <div class="row_form">
+      <input type="submit" value="Lưu">
+    </div>
+  </form>
+</div>`;
+  document.querySelector("[formData]").innerHTML = element;
+  // }, 5);
+}
+function formData_edit() {
+  // resetmodal();
+  cancel = true;
+  // tắt addIcon
+  addIcon.classList.toggle("hide"); // tắt addIcon
+  addIcon.classList.toggle("hide");
+  console.log("formData");
+  // lấy data to edit
+  // vì IDKH ghi từ div Card vào class whatid cần thời gian
+  setTimeout(() => {
+    var IDKH = document.querySelector("[whatid]").textContent;
+    console.log(IDKH);
+    // lấy info name ap từ users card
+    var userFilter = users.filter((user) => {
+      return user.id.includes(IDKH); //return filter
+    });
+    console.log(userFilter);
+    var name = userFilter[0].name;
+    var ap = userFilter[0].ap;
+    var pack = userFilter[0].pack;
+    var phone = userFilter[0].phone;
+    var add = userFilter[0].add;
+    let element = `<div class="container_form">
+  <form action="/action_page.php">
+    <div class="row_form">
+      <div class="col-35">
+        <label for="idkh">IDKH</label>
+      </div>
+      <div class="col-65">
+        <input type="text" id="idkh" name="idkh" placeholder="IDKH">
+      </div>
+    </div>
+    <div class="row_form">
+      <div class="col-35">
+        <label for="name">Tên</label>
+      </div>
+      <div class="col-65">
+        <input type="text" id="name" name="name" placeholder="Tên khách hàng..">
+      </div>
+    </div>
+    <div class="row_form">
+    <div class="col-35">
+      <label for="ap">Ấp</label>
+    </div>
+    <div class="col-65">
+      <select id="hamletF" name="hamletF">
+        <option value="Hữu Hòa">Hữu Hòa</option>
+        <option value="Hữu Bình">Hữu Bình</option>
+        <option value="Hữu Thuận">Hữu Thuận</option>
+        <option value="Hữu Lợi">Hữu Lợi</option>
+        <option value="Cây Bàng">Cây Bàng</option>
+      </select>
+    </div>
+  </div>
+  <div class="row_form">
+  <div class="col-35">
+    <label for="pack">Gói nước</label>
+  </div>
+  <div class="col-65">
+    <select id="packF" name="packF">
+      <option value="SH">SH</option>
+      <option value="SX">SX</option>
+      <option value="KD">KD</option>
+      <option value="HCSN">HCSN</option>
+    </select>
+  </div>
+</div>
+    <div class="row_form">
+    <div class="col-35">
+      <label for="address">Địa chỉ</label>
+    </div>
+    <div class="col-65">
+      <input type="text" id="address" name="address" placeholder="Địa chỉ..">
+    </div>
+  </div>
+  <div class="row_form">
+  <div class="col-35">
+    <label for="phone">Số điện thoại</label>
+  </div>
+  <div class="col-65">
+    <input type="text" id="phone" name="phone" pattern="(09|03|07|08|05)+([0-9]{8})"  placeholder="Số điện thoại..">
+  </div>
+</div>
+
+    <div class="row_form">
+      <input type="submit" value="Lưu">
+    </div>
+  </form>
+</div>`;
+    document.querySelector("[formData]").innerHTML = element;
+    // set date edit
+    document.querySelector('input[name="idkh"]').value = IDKH;
+    document.querySelector('input[name="name"]').value = name;
+    // document.getElementById("hamletF").value = "Cây Bàng";
+    document.querySelector('select[name="hamletF"]').value = ap;
+    document.querySelector('select[name="packF"]').value = pack;
+    document.querySelector('input[name="address"]').value = add;
+    document.querySelector('input[name="phone"]').value = phone;
+  }, 50);
+}
+function formatDate(date) {
+  var d = new Date(date),
+    month = "" + (d.getMonth() + 1),
+    day = "" + d.getDate(),
+    year = d.getFullYear();
+
+  if (month.length < 2) month = "0" + month;
+  if (day.length < 2) day = "0" + day;
+
+  return [year, month, day].join("-");
+}
+// NumberFormat object https://stackoverflow.com/questions/71028035/add-thousand-separator-with-javascript-when-add-input-dynamically
+
+function formGhi_new() {
+  // resetmodal();
+  cancel = true;
+  // tắt addIcon
+  addIcon.classList.toggle("hide"); // tắt addIcon
+  addIcon.classList.toggle("hide");
+  console.log("formData");
+  // lấy data to edit
+  // vì IDKH ghi từ div Card vào class whatid cần thời gian
+  setTimeout(() => {
+    var IDKH = document.querySelector("[whatid]").textContent;
+    console.log(IDKH);
+    // lấy info name ap từ users card
+    var userFilter = users.filter((user) => {
+      return user.id.includes(IDKH); //return filter
+    });
+    console.log(userFilter);
+    //info phieu thu dataghi
+    results = ghidata.filter((i) => IDKH.includes(i.IDKH));
+    results.sort(function (a, b) {
+      return b.RN - a.RN; //firstnew
+    });
+    console.log(results);
+
+    var ap = userFilter[0].ap;
+    var pack = userFilter[0].pack;
+
+    // price  https://stackoverflow.com/questions/69091869/how-to-filter-an-array-in-array-of-objects-in-javascript
+    // Find price
+    var userinfo = JSON.parse(localStorage.getItem("userinfo"));
+    var price = userinfo.price;
+    for (let i = 0; i < price.length; i++) {
+      // console.log(price[i]);
+      if (price[i][0] === pack) {
+        var row = i;
+      }
+    }
+    // console.log(price[row][2]);
+    // Find price
+    // Averge Num
+    var m3 = 0;
+    for (let i = 0; i < results.length; i++) {
+      // console.log(results[i].Num);
+      m3 += results[i].Num;
+    }
+    // console.log(m3);
+    var avergeM3 = parseInt(m3 / results.length);
+    // console.log(avergeM3);
+    var CSC = results[0].CSM;
+    var CSM = results[0].CSM + avergeM3;
+    var NumG = CSM - CSC;
+    var priceWater = price[row][2];
+    var MoneyG = NumG * priceWater;
+    var today = new Date().toDateString("en-CA");
+
+    // yyyy-mm-dd mới input được
+    var date = formatDate(today);
+    let element = `<div class="container_form">
+  <form action="/action_page.php">
+    <div class="row_form">
+      <div class="col-35">
+        <label for="idcs">IDCS</label>
+      </div>
+      <div class="col-65">
+        <input type="text" id="idcs" name="idcs" placeholder="IDCS">
+      </div>
+    </div>
+    <div class="row_form">
+      <div class="col-35">
+        <label for="name">Ngày ghi</label>
+      </div>
+      <div class="col-65">
+        <input type="date" id="dateG" name="dateG" placeholder="15/11/1988">
+      </div>
+    </div>
+    <div class="row_form">
+      <div class="col-35">
+        <label for="name">CSM</label>
+      </div>
+      <div class="col-65">
+        <input type="text" id="CSM" name="number" placeholder="CSM" value="${CSM.toLocaleString(
+          "en"
+        )}" step="1">
+      </div>
+    </div>
+    <div class="row_form">
+      <div class="col-35">
+        <label for="name">CSC</label>
+      </div>
+      <div class="col-65" lang="en-US">
+        <input type="text" id="CSC" name="number" placeholder="CSC" value="${CSC.toLocaleString(
+          "en"
+        )}" step="1">
+      </div>
+    </div>
+    <div class="row_form">
+    <div class="col-35">
+      <label for="name">Số khối</label>
+    </div>
+    <div class="col-65">
+      <input type="text" id="NumG" name="number" pattern="[0-9,]*" placeholder="Số khối">
+    </div>
+  </div>
+  <div class="row_form">
+    <div class="col-35">
+      <label for="name">Thành tiền</label>
+    </div>
+    <div class="col-65">
+    <p id= "priceWater"  style="display: none;" >${priceWater}</p>
+      <input type="text" id="MoneyG" name="number" placeholder="Số tiền">
+    </div>
+  </div>
+
+  <div class="row_form">
+  <div class="col-35">
+    <label for="pack">Ghi chú</label>
+  </div>
+  <div class="col-65">
+    <select id="NoteG" name="NoteG">
+    <option value=""></option>
+      <option value="SH">SH</option>
+      <option value="SX">SX</option>
+      <option value="KD">KD</option>
+      <option value="HCSN">HCSN</option>
+    </select>
+  </div>
+</div>
+<div class="row_form" id="TTXLG">
+<div class="col-35">
+  <label for="pack">TT Xử lý</label>
+</div>
+<div class="col-65" >
+  <p id="ttxl" name="ttxl">
+  <label class = "check"><input type="checkbox" class="radio" name="check" onclick="onlyOne(this)" value="Đã XL"><span>Đã XL</span></label>
+  <label class = "check"><input type="checkbox" class="radio" name="check" onclick="onlyOne(this)" value="Chưa XL"><span>Chưa XL</span></label>
+  </p>
+</div>
+</div>
+
+    <div class="row_form">
+      <input type="submit" value="Lưu">
+    </div>
+  </form>
+</div>`;
+    // số khối không âm, có dấu , [0-9,]* - chuỗi từ 0-9 và , * tìm lập lại ok https://xuanthulab.net/bieu-thuc-chinh-quy-regexp.html
+    // select by buttons https://stackoverflow.com/questions/52707749/how-can-i-display-select-options-as-buttons
+    // https://stackoverflow.com/questions/9709209/html-select-only-one-checkbox-in-a-group
+
+    document.querySelector("[formData]").innerHTML = element;
+    // set date edit
+    document.querySelector('input[id="idcs"]').value = IDKH;
+    document.querySelector('input[id="dateG"]').value = date;
+    // console.log(document.querySelector('input[name="dateG"]'));
+
+    // document.getElementById("hamletF").value = "Cây Bàng";
+    // document.querySelector('input[name="CSM"]').value = CSM;
+    // document.querySelector('input[name="CSC"]').value = CSC;
+    document.querySelector('input[id="NumG"]').value =
+      NumG.toLocaleString("en");
+    document.querySelector('input[id="MoneyG"]').value =
+      MoneyG.toLocaleString("en");
+    document.querySelector('select[id="NoteG"]').value = "";
+    TTXLG.classList.toggle("hide");
+  }, 50);
+  // onchane comma
+  setTimeout(() => {
+    // https://stackoverflow.com/questions/32966869/how-to-target-all-inputs-on-the-page
+    // comma input number https://stackoverflow.com/questions/71028035/add-thousand-separator-with-javascript-when-add-input-dynamically  https://codepen.io/tsunet111/pen/GbpwZa
+    // https://codepen.io/559wade/pen/LRzEjj
+    var priceWater = document.getElementById("priceWater");
+    var allNumberInputs = document.querySelectorAll('input[name="number"]');
+    console.log(allNumberInputs);
+    // Listen for input event on numInput.
+    for (var i = 0; i < allNumberInputs.length; i++) {
+      allNumberInputs[i].addEventListener(`input`, function (event) {
+        // Current string value of the input
+        const value = this.value;
+
+        // Split the value string into an array on each decimal and
+        // count the number of elements in the array
+        const decimalCount = value.split(`.`).length - 1;
+
+        // Don't do anything if a first decimal is entered
+        if (event.key === `.` && decimalCount === 1) return;
+
+        // Remove any commas from the string and convert to a float
+        // This will remove any non digit characters and second decimals
+        const numericVal = parseFloat(value.replace(/,/g, ""));
+
+        //NumberFormat options
+        const options = {
+          style: `decimal`,
+          maximumFractionDigits: 20,
+        };
+
+        // Assign the formatted number to the input box
+
+        if (this.value !== "") {
+          this.value = new Intl.NumberFormat(`en-US`, options).format(
+            numericVal
+          );
+        }
+        // onchane số khối thành tiền
+        var NumG = document.querySelector('input[id="NumG"]');
+        var MoneyG = document.querySelector('input[id="MoneyG"]');
+
+        var CSM = document.querySelector('input[id="CSM"]');
+        var CSC = document.querySelector('input[id="CSC"]');
+        // console.log(NumG);
+        // console.log(texttonumber(CSM.value));
+        // console.log(texttonumber(CSC.value));
+        // console.log(priceWater.innerText);
+        var CSMv = texttonumber(CSM.value);
+        var CSCv = texttonumber(CSC.value);
+        var pricewater = priceWater.innerText;
+        NumG.value = (CSMv - CSCv).toLocaleString("en");
+        MoneyG.value = ((CSMv - CSCv) * pricewater).toLocaleString("en");
+      });
+    }
+    // onchange Note
+    var noteG = document.querySelector('select[id="NoteG"]');
+    var TTXLG = document.getElementById("TTXLG");
+    noteG.addEventListener(`change`, function (event) {
+      console.log(noteG.value);
+      if (noteG.value !== "") {
+        TTXLG.classList.toggle("hide", false);
+      } else {
+        TTXLG.classList.toggle("hide");
+      }
+    });
+  }, 500);
+}
+// only checkbox one
+function onlyOne(checkbox) {
+  var checkboxes = document.getElementsByName("check");
+  checkboxes.forEach((item) => {
+    if (item !== checkbox) item.checked = false;
+  });
+}
+// text to number
+// https://stackoverflow.com/questions/5788741/remove-commas-from-the-string-using-javascript
+// https://stackoverflow.com/questions/36817120/javascript-remove-fullstop-comma-and-spaces-from-a-string
+// remove , và space giữ .
+function texttonumber(text) {
+  // var text = "454562 3452,4456,456.54";
+  var regex = /[,\s]/g; // /[.,\s]/g - nếu remove thêm dấu .
+  var result = text.replace(regex, "");
+  // console.log(result);
+  return result;
 }
 //  Date diff
 function getDateDifference(startDate, endDate) {
