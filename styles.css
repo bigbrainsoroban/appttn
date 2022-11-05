@@ -347,6 +347,17 @@ option {
   margin-left: 0.8rem;
   font-size: 19px;
 }
+.card > .footer> .footer-left > .fa-pen {
+  color: rgb(169 14 229);
+  margin-left: 4.5rem;
+  font-size: 15px;
+}
+.card > .footer> .footer-right >.fa-trash {
+  float:right; /* canh cho the i icon khi dung flex*/
+  color: rgb(169 14 229);
+  font-size: 19px;
+  margin-right: 5rem;
+}
 .card > .footer> .footer-right >.fa-print {
   float:right; /* canh cho the i icon khi dung flex*/
   color: rgb(2, 202, 2);
@@ -647,4 +658,145 @@ option {
 
 .card-ghi > .ghi-footer> .ghi-footer_right >.fa-sack-dollar:active {
   color: rgb(50, 32, 151);
+}
+/* form data */
+.col-65 > input[type=text], .col-65 >textarea, .col-65 > input[type=number], .col-65 > input[type=date] {
+  width: 95%;
+  padding: 12px 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: vertical;
+}
+.col-65 > select {
+  width: 102%;
+  padding: 12px 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: vertical;
+}
+/* .col-65 > input::placeholder {
+  padding: 0px 10px;
+} */
+
+.col-35 >label {
+  padding: 12px 12px 12px 0;
+  display: inline-block;
+  font-weight: bold;
+}
+
+.row_form > input[type=submit] {
+  background-color: #04AA6D;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  float: right;
+  margin: 15px 0px;
+}
+.row_form > input[type=submit]:hover {
+  background-color: #45a049;
+}
+
+.container_form {
+  border-radius: 5px;
+  /* background-color: #f2f2f2; */
+  padding: 15px;
+}
+
+.col-35 {
+  float: left;
+  width: 35%;
+  margin-top: 20px;
+}
+
+.col-65 {
+  float: left;
+  width: 65%;
+  margin-top: 20px;
+}
+
+/* Clear floats after the columns */
+.row_form:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
+/* Mobile: with < 740px, 739px 46.1875em */
+@media only screen and (max-width: 46.1875em) {
+  /* tach 2 row tren mobile */
+  /* .col-35, .col-65, .col-65 > input[type=submit] {
+    width: 99%;
+    margin-top: 0;
+  } */
+  .col-65 > select {
+    width: 106%;
+    padding: 12px 5px;
+  }
+
+}
+/* Tablet: width >= 740px 46.25em  and with < 1024px, 1023px 63.9375em */
+@media only screen and (min-width:46.25em) and (max-width: 63.9375em) {
+  .col-65 > select {
+    width: 101%;
+    padding: 12px 5px;
+  }
+  .col-65 > input[type=text], .col-65 > input[type=number], .col-65 > input[type=date] {
+    width: 97%;
+  }
+}
+/* PC: width >= 1024px 64em */
+@media only screen and (min-width: 64em) {
+  .col-65 > select {
+    width: 98%;
+    padding: 12px 5px;
+
+  }
+}
+/* form data */
+/* Add icon */
+
+.addIcon {
+  margin-top: 23px;
+}
+.addIcon-box .icon{
+  position: absolute;
+  right: 15px;
+   /* chỉnh độ cao */
+  top: -55px;
+  width: 40px;
+  background: #1916ce;
+  text-align: center;
+  line-height: 40px;
+  color: #ffffff;
+  font-size: 25px;
+  border-radius: 20px;
+}
+
+/* Add icon */
+/* selected type button */
+#ttxl {
+  margin-top: -1px;
+}
+.check {
+  padding-right: 30px;
+}
+#ttxl input[type="checkbox"] {
+  display: none;
+}
+
+#ttxl span {
+  display: inline-block;
+  padding: 10px;
+  text-transform: uppercase;
+  border: 2px solid #1916ce;
+  border-radius: 3px;
+  color: #1916ce;
+}
+
+#ttxl input[type="checkbox"]:checked + span {
+  background-color: #1916ce;
+  color: rgb(255, 255, 255);
 }
